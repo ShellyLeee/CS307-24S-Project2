@@ -8,11 +8,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 public class Cs30724SpringProject2Application {
 
-
     public static void main(String[] args) {
         ConfigurableApplicationContext context =
                 SpringApplication.run(Cs30724SpringProject2Application.class, args);
+        /*
         DeskTopGUI gui = context.getBean(DeskTopGUI.class);
         gui.init();
+         */
     }
 }

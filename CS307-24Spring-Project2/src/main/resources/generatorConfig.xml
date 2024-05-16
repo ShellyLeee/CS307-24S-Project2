@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 配置数据库连接 -->
+    <context id="defaultContext" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/project1"
+                        userId="checker"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- Java模型生成器配置 -->
+        <javaModelGenerator targetPackage="cs307.cs30724springproject2.entity"
+                            targetProject="src/main/java"/>
+
+        <!-- SQL映射文件生成器配置 -->
+        <sqlMapGenerator targetPackage="cs307.cs30724springproject2.mapper"
+                         targetProject="src/main/resources"/>
+
+        <!-- Mapper接口生成器配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="cs307.cs30724springproject2.mapper"
+                             targetProject="src/main/java"/>
+
+        <!-- 配置需要生成代码的表 -->
+        <table tableName="card" domainObjectName="card"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="passenger" domainObjectName="passenger"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="station" domainObjectName="station"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="line" domainObjectName="line"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="line_detail" domainObjectName="lineDetail"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="price" domainObjectName="price"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="passenger_ride" domainObjectName="passengerRide"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="card_ride" domainObjectName="cardRide"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="bus_line" domainObjectName="busLine"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="bus_stop" domainObjectName="busStop"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="buildings" domainObjectName="buildings"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="exit" domainObjectName="exit"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+
+    </context>
+</generatorConfiguration>
