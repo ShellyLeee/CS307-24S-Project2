@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//？加到容器里
+//加到容器里
 @Service
 public class cardService {
 
-    //什么依赖注入
+    //依赖注入
     @Autowired
     public cardMapper CardMapper;
 

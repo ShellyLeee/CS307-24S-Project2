@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地铁管理系统</title>
+    <style>
+        body {
+            text-align: center; /* 让标题居中 */
+        }
+        .buttons {
+            margin-top: 20px; /* 距离标题的上边距 */
+        }
+        .buttons button {
+            margin: 5px; /* 按钮之间的间距 */
+        }
+    </style>
+</head>
+<body>
+<h1>地铁管理系统</h1>
+<div class="buttons">
+    <button id="loginButton">登陆</button>
+    <button>按钮2</button>
+    <button id="queryButton">查询站点</button>
+    <button>按钮4</button>
+</div>
+
+<script>
+    document.getElementById("loginButton").addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/card/selectAll", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                window.location.href = "http://localhost:8080/card/selectAll";
+                var response = JSON.parse(xhr.responseText);
+                // 处理从后端返回的数据
+                console.log(response);
+            }
+        };
+        xhr.send();
+    });
+</script>
+
+<!-- 输入站点ID的对话框 -->
+<div id="inputDialog" style="display: none;">
+    <p>请输入想要查询的站点ID：</p>
+    <input type="number" id="stationIdInput">
+    <br><br>
+    <button id="confirmButton">确认</button>
+</div>
+
+<script>
+    document.getElementById("queryButton").addEventListener("click", function() {
+// 弹出输入框
+        document.getElementById("inputDialog").style.display = "block";
+    });
+
+    document.getElementById("confirmButton").addEventListener("click", function() {
+        var stationId = document.getElementById("stationIdInput").value;
+        if (stationId >= 1 && stationId <= 306) {
+            // 构造目标跳转链接
+            var targetURL = "http://localhost:8080/station/selectById?id=" + stationId;
+            // 执行页面跳转
+            window.location.href = targetURL;
+        } else {
+            alert("请输入1到306之间的数字！");
+        }
+    });
+</script>
+</body>
+</html>
+
