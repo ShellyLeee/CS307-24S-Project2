@@ -5,7 +5,5 @@
 <mapper namespace="cs307.cs30724springproject2.mapper.cardMapper">
     <select id="selectAll" resultType="cs307.cs30724springproject2.entity.card">
         SELECT * FROM card
-    <insert id="insert" parameterType="" >
-        SELECT * FROM card
-    </insert>
+    </select>
 </mapper>
