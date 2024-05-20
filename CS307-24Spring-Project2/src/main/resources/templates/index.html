@@ -22,6 +22,8 @@
     <button id="deleteButton">删除站点</button>
     <button id="insertButton">增加站点</button>
     <button id="selectButton">查询站点</button>
+    <button id="boardExit">出站/进站</button>
+    <button id="viewPassenger">查询进站乘客</button>
 </div>
 
 <!-- 查询Card按钮 -->
@@ -72,11 +74,27 @@
     <button id="deleteConfirmButton">确认</button>
 </div>
 
+<!-- 输入上车/下车乘客信息的对话框-->
+<div id="inputPassengerDialog" style="display: none;">
+    <p>请输入乘客信息（ID与卡号选填一个）：</p>
+    <label for="PassengerID">ID:</label>
+    <input type="String" id="">
+    <label for="englishName">英文名:</label>
+    <input type="String" id="">
+    <br><br>
+    <button id="boardConfirmButton">进站</button>
+    <button id="exitConfirmButton">出站</button>
+</div>
+
 <!-- 查询站点按钮逻辑 -->
 <script>
     document.getElementById("selectButton").addEventListener("click", function() {
-// 弹出输入框
-        document.getElementById("inputSelectDialog").style.display = "block";
+        var dialog = document.getElementById("inputSelectDialog");
+        if (dialog.style.display === "none" || dialog.style.display === "") {
+            dialog.style.display = "block";
+        } else {
+            dialog.style.display = "none";
+        }
     });
 
     document.getElementById("selectConfirmButton").addEventListener("click", function() {
@@ -95,7 +113,12 @@
 <!-- 增加站点按钮逻辑 -->
 <script>
     document.getElementById("insertButton").addEventListener("click", function() {
-        document.getElementById("inputInsertDialog").style.display = "block";
+        var dialog = document.getElementById("inputInsertDialog");
+        if (dialog.style.display === "none" || dialog.style.display === "") {
+            dialog.style.display = "block";
+        } else {
+            dialog.style.display = "none";
+        }
     });
 
     // 当点击确认按钮时读取输入数据，并发送到服务器
@@ -144,7 +167,12 @@
 <script>
     document.getElementById("deleteButton").addEventListener("click", function() {
 // 弹出输入框
-        document.getElementById("inputDeleteDialog").style.display = "block";
+        var dialog = document.getElementById("inputDeleteDialog");
+        if (dialog.style.display === "none" || dialog.style.display === "") {
+            dialog.style.display = "block";
+        } else {
+            dialog.style.display = "none";
+        }
     });
 
     document.getElementById("deleteConfirmButton").addEventListener("click", function() {
