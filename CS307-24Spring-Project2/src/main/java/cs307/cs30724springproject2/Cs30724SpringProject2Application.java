@@ -1,7 +1,5 @@
 package cs307.cs30724springproject2;
 
-import cs307.cs30724springproject2.GUI.MainFrame;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

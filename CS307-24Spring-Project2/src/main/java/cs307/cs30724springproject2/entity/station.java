@@ -12,7 +12,7 @@ public class station {
 
     private String intro;
 
-    public station(Integer id, String district, String englishName, String chineseName, String intro) {
+    public station(int id, String district, String englishName, String chineseName, String intro) {
         this.id = id;
         this.district = district;
         this.englishName = englishName;

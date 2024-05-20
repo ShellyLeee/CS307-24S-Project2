@@ -18,12 +18,13 @@
 <body>
 <h1>地铁管理系统</h1>
 <div class="buttons">
-    <button id="loginButton">登陆</button>
-    <button>按钮2</button>
-    <button id="queryButton">查询站点</button>
-    <button>按钮4</button>
+    <button id="loginButton">查看card</button>
+    <button id="deleteButton">删除站点</button>
+    <button id="insertButton">增加站点</button>
+    <button id="selectButton">查询站点</button>
 </div>
 
+<!-- 查询Card按钮 -->
 <script>
     document.getElementById("loginButton").addEventListener("click", function() {
         var xhr = new XMLHttpRequest();
@@ -40,22 +41,46 @@
     });
 </script>
 
-<!-- 输入站点ID的对话框 -->
-<div id="inputDialog" style="display: none;">
+<!-- 输入查询站点ID的对话框 -->
+<div id="inputSelectDialog" style="display: none;">
     <p>请输入想要查询的站点ID：</p>
-    <input type="number" id="stationIdInput">
+    <input type="number" id="stationIdSelect">
     <br><br>
-    <button id="confirmButton">确认</button>
+    <button id="selectConfirmButton">确认</button>
 </div>
 
+<!-- 输入增加站点ID的对话框 -->
+<div id="inputInsertDialog" style="display: none;">
+    <p>请输入想要增加的站点信息：</p>
+    <label for="district">地区:</label>
+    <input type="String" id="district">
+    <label for="englishName">英文名:</label>
+    <input type="String" id="englishName">
+    <label for="chineseName">中文名:</label>
+    <input type="String" id="chineseName">
+    <label for="intro">介绍:</label>
+    <input type="String" id="intro">
+    <br><br>
+    <button id="insertConfirmButton">确认</button>
+</div>
+
+<!-- 输入删除站点ID的对话框 -->
+<div id="inputDeleteDialog" style="display: none;">
+    <p>请输入想要删除的站点ID：</p>
+    <input type="number" id="stationIdDelete">
+    <br><br>
+    <button id="deleteConfirmButton">确认</button>
+</div>
+
+<!-- 查询站点按钮逻辑 -->
 <script>
-    document.getElementById("queryButton").addEventListener("click", function() {
+    document.getElementById("selectButton").addEventListener("click", function() {
 // 弹出输入框
-        document.getElementById("inputDialog").style.display = "block";
+        document.getElementById("inputSelectDialog").style.display = "block";
     });
 
-    document.getElementById("confirmButton").addEventListener("click", function() {
-        var stationId = document.getElementById("stationIdInput").value;
+    document.getElementById("selectConfirmButton").addEventListener("click", function() {
+        var stationId = document.getElementById("stationIdSelect").value;
         if (stationId >= 1 && stationId <= 306) {
             // 构造目标跳转链接
             var targetURL = "http://localhost:8080/station/selectById?id=" + stationId;
@@ -66,6 +91,76 @@
         }
     });
 </script>
+
+<!-- 增加站点按钮逻辑 -->
+<script>
+    document.getElementById("insertButton").addEventListener("click", function() {
+        document.getElementById("inputInsertDialog").style.display = "block";
+    });
+
+    // 当点击确认按钮时读取输入数据，并发送到服务器
+    document.getElementById("insertConfirmButton").addEventListener("click", function() {
+        var district = document.getElementById("district").value;
+        var englishName = document.getElementById("englishName").value;
+        var chineseName = document.getElementById("chineseName").value;
+        var intro = document.getElementById("intro").value;
+
+        var data = {
+            district: district,
+            englishName: englishName,
+            chineseName: chineseName,
+            intro: intro
+        };
+
+        fetch('http://localhost:8080/station/insert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('站点添加失败！');
+            })
+            .then(message => {
+                alert("站点添加成功！" + message);
+                // 成功后可以选择隐藏对话框和清除输入框的值
+                document.getElementById("inputInsertDialog").style.display = "none";
+                document.getElementById("district").value = '';
+                document.getElementById("englishName").value = '';
+                document.getElementById("chineseName").value = '';
+                document.getElementById("intro").value = '';
+            })
+            .catch(error => {
+                alert("站点添加失败：" + error.message);
+            });
+    });
+</script>
+
+<!-- 删除站点按钮逻辑 -->
+<script>
+    document.getElementById("deleteButton").addEventListener("click", function() {
+// 弹出输入框
+        document.getElementById("inputDeleteDialog").style.display = "block";
+    });
+
+    document.getElementById("deleteConfirmButton").addEventListener("click", function() {
+        var stationId = document.getElementById("stationIdDelete").value;
+        if (stationId >= 1 && stationId <= 306) {
+            // 构造目标跳转链接
+            var targetURL = "http://localhost:8080/station/selectById?id=" + stationId;
+            // 执行页面跳转
+            window.location.href = targetURL;
+        } else {
+            alert("请输入1到306之间的数字！");
+        }
+    });
+</script>
+
+
 </body>
 </html>
 

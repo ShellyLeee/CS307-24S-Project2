@@ -3,9 +3,19 @@
 
 <!-- 定义了一个名为 “stationMapper” 的映射器 -->
 <mapper namespace="cs307.cs30724springproject2.mapper.stationMapper">
-    <!-- 查询用户信息 -->
+    <!-- 查询站点信息 -->
     <select id="selectById" parameterType="int" resultType="station">
         SELECT * FROM station WHERE id = #{id}
     </select>
+
+    <!-- 删除站点信息 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM station WHERE id = #{id}
+    </delete>
+
+    <!-- 插入站点信息 -->
+    <insert id="insert" parameterType="station">
+        INSERT INTO station (district, English_name, Chinese_name, intro) VALUES (#{district}, #{englishName}, #{chineseName}, #{intro})
+    </insert>
 
 </mapper>
