@@ -150,10 +150,27 @@
     document.getElementById("deleteConfirmButton").addEventListener("click", function() {
         var stationId = document.getElementById("stationIdDelete").value;
         if (stationId >= 1 && stationId <= 306) {
-            // 构造目标跳转链接
-            var targetURL = "http://localhost:8080/station/selectById?id=" + stationId;
-            // 执行页面跳转
-            window.location.href = targetURL;
+            fetch('http://localhost:8080/station/delete?id=' + stationId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('站点删除失败！');
+                })
+                .then(message => {
+                    alert("站点删除成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputDeleteDialog").style.display = "none";
+                    document.getElementById("stationIdDelete").value = '';
+                })
+                .catch(error => {
+                    alert("站点删除失败：" + error.message);
+                });
         } else {
             alert("请输入1到306之间的数字！");
         }
