@@ -32,5 +32,14 @@ public class stationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert station.");
         }
     }
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteStation(@RequestParam("id") int id) {
+        try {
+            stationService.deleteStationById(id);
+            return ResponseEntity.ok("Station deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete station.");
+        }
+    }
 
 }

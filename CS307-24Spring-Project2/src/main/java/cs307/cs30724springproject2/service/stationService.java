@@ -19,4 +19,7 @@ public class stationService {
     public void insertStation(station station) {
         StationMapper.insert(station);
     }
+    public void deleteStationById(int id) {
+        StationMapper.deleteById(id);
+    }
 }
