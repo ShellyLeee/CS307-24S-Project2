@@ -1,6 +1,7 @@
 package cs307.cs30724springproject2.service;
 
 import cs307.cs30724springproject2.entity.cardOnboard;
+import cs307.cs30724springproject2.entity.passengerOnboard;
 import cs307.cs30724springproject2.mapper.cardOnboardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class cardOnboardService {
 
     public void insertCardOnboard(cardOnboard cardOnboard){
         cardOnboardMapper.insert(cardOnboard);
+    }
+
+    public void insertBoardingTime(cardOnboard cardOnboard){
+        cardOnboardMapper.insertTime(cardOnboard);
     }
 }
