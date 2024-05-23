@@ -28,8 +28,4 @@ public class cardOnboardService {
     public void insertCardOnboard(cardOnboard cardOnboard){
         cardOnboardMapper.insert(cardOnboard);
     }
-
-    public void insertBoardingTime(cardOnboard cardOnboard){
-        cardOnboardMapper.insertTime(cardOnboard);
-    }
 }

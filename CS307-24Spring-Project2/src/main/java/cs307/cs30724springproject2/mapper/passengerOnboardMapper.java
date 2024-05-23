@@ -15,8 +15,6 @@ public interface passengerOnboardMapper {
 
     int insertSelective(passengerOnboard row);
 
-    int insertTime(passengerOnboard row);
-
     passengerOnboard selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(passengerOnboard row);

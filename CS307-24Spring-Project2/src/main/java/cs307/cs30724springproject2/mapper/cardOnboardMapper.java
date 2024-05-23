@@ -16,8 +16,6 @@ public interface cardOnboardMapper {
 
     int insertSelective(cardOnboard row);
 
-    int insertTime(cardOnboard row);
-
     cardOnboard selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(cardOnboard row);

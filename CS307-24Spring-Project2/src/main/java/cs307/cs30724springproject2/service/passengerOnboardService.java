@@ -27,7 +27,4 @@ public class passengerOnboardService {
         passengerOnboardMapper.insert(passengerOnboard);
     }
 
-    public void insertBoardingTime(passengerOnboard passengerOnboard){
-        passengerOnboardMapper.insertTime(passengerOnboard);
-    }
 }

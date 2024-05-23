@@ -36,18 +36,6 @@ public class cardOnboardController {
         }
     }
 
-    @PostMapping("/insertTime")
-    public ResponseEntity<String> addBoardingTime
-            (@RequestBody cardOnboard cardOnboard) {
-        try {
-            cardOnboardService.insertBoardingTime(cardOnboard);
-            return ResponseEntity.ok("Boarding time inserted successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to insert boarding time.");
-        }
-    }
-
     @PostMapping("/deleteByCodeStation")
     public ResponseEntity<String> deleteCardOnboard(@RequestParam("String") String code, String station) {
         try {

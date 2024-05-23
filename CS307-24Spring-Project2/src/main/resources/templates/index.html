@@ -223,7 +223,71 @@
     });
 
     document.getElementById("boardConfirmButton").addEventListener("click", function () {
-
+        var ID = document.getElementById("PassengerID").value;
+        var code = document.getElementById("CardCode").value;
+        var startStation = document.getElementById("start_station").value;
+        var time = new Date();
+        if (ID != null) {
+            var data = {
+                passenger_id: ID,
+                start_station: startStation,
+                start_time: time,
+            };
+            fetch('http://localhost:8080/passengerOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("PassengerID").value = '';
+                    document.getElementById("englishName").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        } else if (code != null){
+            var data = {
+                card_code: code,
+                start_station: startStation,
+                start_time: time,
+            };
+            fetch('http://localhost:8080/cardOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("PassengerID").value = '';
+                    document.getElementById("englishName").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        }
     })
 
     document.getElementById("exitConfirmButton").addEventListener("click", function () {
