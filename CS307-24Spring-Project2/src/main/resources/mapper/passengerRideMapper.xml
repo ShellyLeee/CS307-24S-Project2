@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cs307.cs30724springproject2.mapper.passengerRideMapper">
+    <insert id="insert" parameterType="passengerRide">
+        INSERT INTO passengerRide (passenger_id, start_station, end_station, price, start_time, end_time)
+        VALUES (#{passenger_id}, #{start_station}, #{end_station}, #{price}, #{start_time}, #{end_time})
+    </insert>
+
+</mapper>
