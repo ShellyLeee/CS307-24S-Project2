@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cs307.cs30724springproject2.mapper.cardOnboardMapper">
+    <!-- 返回乘客信息 -->
+    <select id="selectAllCardOnboard" resultType="cs307.cs30724springproject2.entity.cardOnboard">
+        SELECT * FROM card_onboard
+    </select>
+
+    <!-- 删除乘客信息 -->
+    <delete id="deleteByPrimaryKey" parameterType="int">
+        DELETE FROM card_onboard WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByCodeStation" parameterType="String">
+        DELETE FROM card_onboard WHERE card_code = #{card_code} and start_station = #{station}
+    </delete>
+
+    <!-- 插入乘客信息 -->
+    <insert id="insert" parameterType="cardOnboard">
+        INSERT INTO card_onboard (card_code, start_station) VALUES (#{card-code}, #{station})
+    </insert>
+
+    <insert id="insertTime" parameterType="cardOnboard">
+        INSERT INTO passenger_onboard (start_time) VALUES (#{time})
+    </insert>
+
+</mapper>
