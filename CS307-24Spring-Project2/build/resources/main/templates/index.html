@@ -17,11 +17,13 @@
 </head>
 <body>
 <h1>地铁管理系统</h1>
+
 <div class="buttons">
     <button id="loginButton">查看card</button>
     <button id="deleteButton">删除站点</button>
     <button id="insertButton">增加站点</button>
     <button id="selectButton">查询站点</button>
+    <button id="modifyButton">修改站点</button>
     <button id="boardExitButton">出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
     <button id="viewCardButton">查询进站公交卡</button>
@@ -73,6 +75,59 @@
     <input type="number" id="stationIdDelete">
     <br><br>
     <button id="deleteConfirmButton">确认</button>
+</div>
+
+<!-- 输入删除站点ID的对话框 -->
+<style>
+    /* 样式可以根据需要进行调整 */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<div id="inputModyfyDialog" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <label for="chineseName">站点名称：</label>
+        <input type="text" id="cnModify" placeholder="请输入站点名称">
+        <button id="confirmBtn">确定</button>
+        <div id="siteInfo">
+            <p>地区：<span id="dModify"></span></p>
+            <p>英文名：<span id="enModify"></span></p>
+            <p>中文名：<span id="chineseNameDisplay"></span></p>
+            <p>介绍内容：<span id="iModify"></span></p>
+            <button class="editBtn">修改</button>
+        </div>
+        <button id="confirmModifyBtn" style="display: none;">确认修改</button>
+    </div>
 </div>
 
 <!-- 输入上车/下车乘客信息的对话框-->
@@ -223,7 +278,71 @@
     });
 
     document.getElementById("boardConfirmButton").addEventListener("click", function () {
-
+        var ID = document.getElementById("PassengerID").value;
+        var code = document.getElementById("CardCode").value;
+        var startStation = document.getElementById("start_station").value;
+        var time = new Date();
+        if (ID != null) {
+            var data = {
+                passenger_id: ID,
+                start_station: startStation,
+                start_time: time,
+            };
+            fetch('http://localhost:8080/passengerOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("PassengerID").value = '';
+                    document.getElementById("englishName").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        } else if (code != null){
+            var data = {
+                card_code: code,
+                start_station: startStation,
+                start_time: time,
+            };
+            fetch('http://localhost:8080/cardOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("PassengerID").value = '';
+                    document.getElementById("englishName").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        }
     })
 
     document.getElementById("exitConfirmButton").addEventListener("click", function () {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog Example</title>
+    <style>
+        /* 样式用于模态框 */
+        .modal {
+            display: none; /* 初始隐藏 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* 半透明背景 */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 按钮触发对话框 -->
+<button onclick="openDialog()">打开对话框</button>
+
+<!-- 对话框模态框 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDialog()">&times;</span>
+        <p>请输入内容：</p>
+        <input type="text" id="inputContent">
+        <button onclick="submitContent()">提交</button>
+    </div>
+</div>
+
+<script>
+    // 获取对话框元素
+    var modal = document.getElementById("myModal");
+
+    // 获取打开对话框的按钮
+    var btn = document.getElementById("myBtn");
+
+    // 获取关闭对话框的 <span> 元素
+    var span = document.getElementsByClassName("close")[0];
+
+    // 当用户点击按钮时打开对话框
+    function openDialog() {
+        modal.style.display = "block";
+    }
+
+    // 当用户点击 <span> (x) 时关闭对话框
+    function closeDialog() {
+        modal.style.display = "none";
+    }
+
+    // 当用户点击提交时
+    function submitContent() {
+// 获取输入的内容
+        var content = document.getElementById("inputContent").value;
+// 在这里你可以做任何你想要的操作，比如将内容发送到后端
+// 关闭对话框
+        closeDialog();
+    }
+</script>
+
+</body>
+</html>
+

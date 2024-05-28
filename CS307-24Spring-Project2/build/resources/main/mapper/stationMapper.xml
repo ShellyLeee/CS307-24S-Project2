@@ -17,5 +17,4 @@
     <insert id="insert" parameterType="station">
         INSERT INTO station (district, English_name, Chinese_name, intro) VALUES (#{district}, #{englishName}, #{chineseName}, #{intro})
     </insert>
-
 </mapper>

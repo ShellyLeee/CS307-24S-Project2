@@ -17,11 +17,7 @@
 
     <!-- 插入乘客信息 -->
     <insert id="insert" parameterType="cardOnboard">
-        INSERT INTO card_onboard (card_code, start_station) VALUES (#{card-code}, #{station})
-    </insert>
-
-    <insert id="insertTime" parameterType="cardOnboard">
-        INSERT INTO passenger_onboard (start_time) VALUES (#{time})
+        INSERT INTO card_onboard (card_code, start_station, start_time) VALUES (#{card_code}, #{station}, #{time})
     </insert>
 
 </mapper>
