@@ -6,6 +6,10 @@
         SELECT * FROM passenger_onboard
     </select>
 
+    <select id="selectByIdStation" parameterType="String" resultType="passengerOnboard">
+        SELECT * FROM passenger WHERE passenger_id = #{passenger_id} and start_station = #{station}
+    </select>
+
     <!-- 删除乘客信息 -->
     <delete id="deleteByPrimaryKey" parameterType="int">
         DELETE FROM passenger_onboard WHERE id = #{id}

@@ -18,6 +18,8 @@ public interface cardOnboardMapper {
 
     cardOnboard selectByPrimaryKey(Integer id);
 
+    cardOnboard selectByCodeStation(String code, String station);
+
     int updateByPrimaryKeySelective(cardOnboard row);
 
     int updateByPrimaryKey(cardOnboard row);

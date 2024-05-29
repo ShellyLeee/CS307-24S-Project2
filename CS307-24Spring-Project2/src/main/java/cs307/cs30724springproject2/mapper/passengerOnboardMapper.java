@@ -11,6 +11,8 @@ public interface passengerOnboardMapper {
 
     int deleteByIdStation(String id, String station);
 
+    passengerOnboard selectByIdStation(String id, String station);
+
     int insert(passengerOnboard row);
 
     int insertSelective(passengerOnboard row);
