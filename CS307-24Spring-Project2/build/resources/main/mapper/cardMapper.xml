@@ -6,4 +6,5 @@
     <select id="selectAll" resultType="cs307.cs30724springproject2.entity.card">
         SELECT * FROM card
     </select>
+
 </mapper>
