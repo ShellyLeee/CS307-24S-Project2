@@ -9,9 +9,13 @@
 
 **Contribution of work**
 
-李天宇：
+李天宇：APIs of accessing data of passengers/cards/prices and their connections with the webpage, 
 
-李怡萱：
+webpage design, 
+
+李怡萱：APIs of accessing data of stations/lines and their connections with the webpage, webpage optimization, 
+
+
 
 ## Basic functions
 
@@ -23,35 +27,35 @@
 
 
 
-#### **Add, modify, delete a station**
+##### **Add, modify, delete a station**
 
 - 
 
-#### **Add, modify, delete a new line**
+##### **Add, modify, delete a new line**
 
 - 
 
-#### **Place one or more stations at a specified location on a line**
+##### **Place one or more stations at a specified location on a line**
 
 - 
 
-#### **Remove a station from a line**
+##### **Remove a station from a line**
 
 - 
 
-#### **Search the name of the station that is the n-th station ahead/behind a specific station on a line**
+##### **Search the name of the station that is the n-th station ahead/behind a specific station on a line**
 
 - 
 
-#### **Boarding functionality for a passenger or card**
+##### **Boarding functionality for a passenger or card**
 
 - 
 
-#### Boarding functionality for a passenger or card
+##### Boarding functionality for a passenger or card
 
 - 
 
-#### **View all information about passengers or cards who have boarded but have not yet exited at the current time**
+##### **View all information about passengers or cards who have boarded but have not yet exited at the current time**
 
 - 
 
