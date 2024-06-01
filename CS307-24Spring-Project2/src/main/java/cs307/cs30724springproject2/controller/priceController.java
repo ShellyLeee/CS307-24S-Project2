@@ -17,10 +17,10 @@ public class priceController {
     public priceService priceService;
 
     @GetMapping(value = "/selectByStations", produces = "application/json;charset=utf-8")
-    public String selectByStations(@RequestParam String start, String end, Model model){
+    public price selectByStations(@RequestParam String start, String end, Model model){
         // 这里要改
         price price = priceService.getprice(start, end);
         model.addAttribute("price", price);
-        return "price";
+        return price;
     }
 }
