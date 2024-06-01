@@ -8,6 +8,10 @@
         SELECT * FROM station WHERE id = #{id}
     </select>
 
+    <select id="selectByChineseName" parameterType="String" resultType="station">
+        SELECT * FROM station WHERE Chinese_name = #{chineseName}
+    </select>
+
     <!-- 删除站点信息 -->
     <delete id="deleteById" parameterType="int">
         DELETE FROM station WHERE id = #{id}
@@ -17,4 +21,10 @@
     <insert id="insert" parameterType="station">
         INSERT INTO station (district, English_name, Chinese_name, intro) VALUES (#{district}, #{englishName}, #{chineseName}, #{intro})
     </insert>
+
+    <!-- 修改站点信息 -->
+    <update id="updateByChineseName" parameterType="station">
+        UPDATE station SET district = #{district}, english_name = #{englishName}, chinese_name = #{chineseName}, intro = #{intro} WHERE chinese_name = #{chineseName}
+    </update>
+
 </mapper>

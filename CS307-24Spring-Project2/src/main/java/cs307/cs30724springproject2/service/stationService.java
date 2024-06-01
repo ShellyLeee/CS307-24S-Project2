@@ -5,8 +5,6 @@ import cs307.cs30724springproject2.mapper.stationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class stationService {
     @Autowired
@@ -16,10 +14,17 @@ public class stationService {
         return StationMapper.selectById(id);
     }
 
+    public station findStationByChineseName(String chineseName) {
+        return StationMapper.selectByChineseName(chineseName);
+    }
+
     public void insertStation(station station) {
         StationMapper.insert(station);
     }
     public void deleteStationById(int id) {
         StationMapper.deleteById(id);
+    }
+    public void updateStation(station station) {
+        StationMapper.updateByChineseName(station);
     }
 }
