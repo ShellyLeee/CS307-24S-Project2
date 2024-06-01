@@ -107,6 +107,7 @@
 
 </script>
 
+
 <!-- 输入查询线路信息的对话框 -->
 <div id="inputLineSelectDialog" class="modal">
     <div class="modal-content">
@@ -210,6 +211,86 @@
 </script>
 
 
+<!-- 输入增加线路信息的对话框 -->
+<div id="inputLineInsertDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLineInsertDialog()">&times;</span>
+        <p>请输入想要增加的线路信息：</p>
+        <label for="name">线路名称:</label>
+        <input type="String" id="name">
+        <label for="startTime">起始时间:</label>
+        <input type="String" id="startTime">
+        <label for="endTime">终止时间:</label>
+        <input type="String" id="endTime">
+        <label for="lineIntro">线路介绍:</label>
+        <input type="String" id="lineIntro">
+        <label for="mileage">英里数:</label>
+        <input type="String" id="mileage">
+        <label for="color">线路颜色:</label>
+        <input type="String" id="color">
+        <label for="firstOpening">最初开放时间:</label>
+        <input type="String" id="firstOpening">
+        <label for="url">URL:</label>
+        <input type="String" id="url">
+        <br><br>
+        <button onclick="submitLineInsert()">提交</button>
+    </div>
+</div>
+<script>
+    function openLineInsertDialog() {
+        var insertLineDialog = document.getElementById("inputLineInsertDialog");
+        insertLineDialog.style.display = "block";
+    }
+    function closeLineInsertDialog() {
+        var insertLineDialog = document.getElementById("inputLineInsertDialog");
+        insertLineDialog.style.display = "none";
+    }
+    function submitLineInsert() {
+        var name = document.getElementById("name").value;
+        var startTime = document.getElementById("startTime").value;
+        var endTime = document.getElementById("endTime").value;
+        var lineIntro = document.getElementById("lineIntro").value;
+        var mileage = document.getElementById("mileage").value;
+        var color = document.getElementById("color").value;
+        var firstOpening = document.getElementById("firstOpening").value;
+        var url = document.getElementById("url").value;
+
+        var data = {
+            name: name,
+            startTime: startTime,
+            endTime: endTime,
+            lineIntro: lineIntro,
+            mileage: mileage,
+            color: color,
+            firstOpening: firstOpening,
+            url: url
+        };
+
+        fetch('http://localhost:8080/line/insert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('线路添加失败！');
+            })
+            .then(message => {
+                alert("线路添加成功！" + message);
+            })
+            .catch(error => {
+                alert("线路添加失败：" + error.message);
+            });
+        // 关闭对话框
+        closeLineInsertDialog();
+    }
+</script>
+
+
 <!-- 输入删除站点ID的对话框 -->
 <div id="inputDeleteDialog" class="modal">
     <div class="modal-content">
@@ -258,6 +339,51 @@
         }
 // 关闭对话框
         closeDeleteDialog();
+    }
+</script>
+
+
+<!-- 输入删除线路信息的对话框 -->
+<div id="inputLineDeleteDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLineDeleteDialog()">&times;</span>
+        <p>请输入想要删除的线路名称：</p>
+        <input type="text" id="lineNameDelete">
+        <br><br>
+        <button onclick="submitLineDelete()">提交</button>
+    </div>
+</div>
+<script>
+    function openLineDeleteDialog() {
+        var deleteLineDialog = document.getElementById("inputLineDeleteDialog");
+        deleteLineDialog.style.display = "block";
+    }
+    function closeLineDeleteDialog() {
+        var deleteLineDialog = document.getElementById("inputLineDeleteDialog");
+        deleteLineDialog.style.display = "none";
+    }
+    function submitLineDelete() {
+        var lineName = document.getElementById("lineNameDelete").value;
+        fetch(`http://localhost:8080/line/delete?name=${lineName}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('线路删除失败！');
+            })
+            .then(message => {
+                alert("线路删除成功！" + message);
+            })
+            .catch(error => {
+                alert("线路删除失败：" + error.message);
+            });
+// 关闭对话框
+        closeLineDeleteDialog();
     }
 </script>
 

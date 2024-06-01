@@ -43,7 +43,7 @@
     <tbody>
     <tr>
         <td th:text="${line.name}"></td>
-        <td th:text="${line.startTime}"></td>
+        <td th:text="${#dates.format(line.startTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${line.endTime}"></td>
         <td th:text="${line.intro}"></td>
         <td th:text="${line.mileage}"></td>
