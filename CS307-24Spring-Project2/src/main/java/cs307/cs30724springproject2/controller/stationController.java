@@ -1,7 +1,4 @@
 package cs307.cs30724springproject2.controller;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cs307.cs30724springproject2.entity.station;
 import cs307.cs30724springproject2.service.stationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,7 @@ public class stationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to insert station.");
         }
     }
+
     @PostMapping("/delete")
     public ResponseEntity<String> deleteStation(@RequestParam("id") int id) {
         try {

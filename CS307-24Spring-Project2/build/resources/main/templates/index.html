@@ -52,37 +52,23 @@
 <body>
 <h1>地铁管理系统</h1>
 
-
-
-
 <div class="buttons">
-    <button id="loginButton">查看card</button>
-    <button id="deleteButton">删除站点</button>
-    <button id="insertButton">增加站点</button>
     <!-- 按钮触发对话框 -->
-    <button onclick="openDialog()">查询站点</button>
+    <button onclick="openInsertDialog()">增加站点</button>
+    <button onclick="openDeleteDialog()">删除站点</button>
+    <button onclick="openSelectDialog()">查询站点</button>
     <button onclick="openUpdateDialog()">修改站点</button>
+    <br><br>
+    <button onclick="openLineInsertDialog()">增加线路</button>
+    <button onclick="openLineDeleteDialog()">删除线路</button>
+    <button onclick="openLineSelectDialog()">查询线路</button>
+    <button onclick="openLineUpdateDialog()">修改线路</button>
+    <br><br>
     <button id="boardExitButton">出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
     <button id="viewCardButton">查询进站公交卡</button>
 </div>
 
-<!-- 查询Card按钮 -->
-<script>
-    document.getElementById("loginButton").addEventListener("click", function() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:8080/card/selectAll", true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                window.location.href = "http://localhost:8080/card/selectAll";
-                var response = JSON.parse(xhr.responseText);
-                // 处理从后端返回的数据
-                console.log(response);
-            }
-        };
-        xhr.send();
-    });
-</script>
 
 <!-- 输入查询站点ID的对话框 -->
 <div id="inputSelectDialog" class="modal">
@@ -94,16 +80,16 @@
         <button onclick="submitContentSelect()">提交</button>
     </div>
 </div>
-
-<!-- 查询站点按钮逻辑 -->
 <script>
     var modal = document.getElementById("inputSelectDialog");
 
-    function openDialog() {
-        modal.style.display = "block";
+    function openSelectDialog() {
+        var selectDialog = document.getElementById("inputSelectDialog");
+        selectDialog.style.display = "block";
     }
     function closeSelectDialog() {
-        modal.style.display = "none";
+        var selectDialog = document.getElementById("inputSelectDialog");
+        selectDialog.style.display = "none";
     }
     function submitContentSelect() {
         var stationId = document.getElementById("stationIdSelect").value;
@@ -121,32 +107,162 @@
 
 </script>
 
+<!-- 输入查询线路信息的对话框 -->
+<div id="inputLineSelectDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLineSelectDialog()">&times;</span>
+        <p>请输入想要查询的线路名称：</p>
+        <input type="text" id="lineNameSelectInput">
+        <br><br>
+        <button onclick="submitLineSelect()">提交</button>
+    </div>
+</div>
+<script>
+    function openLineSelectDialog() {
+        var selectDialog = document.getElementById("inputLineSelectDialog");
+        selectDialog.style.display = "block";
+    }
+    function closeLineSelectDialog() {
+        var selectDialog = document.getElementById("inputLineSelectDialog");
+        selectDialog.style.display = "none";
+    }
+    function submitLineSelect() {
+        var lineName = document.getElementById("lineNameSelectInput").value;
+        // 构造目标跳转链接
+        var targetURL = `http://localhost:8080/line/selectByNameInfo?name=${lineName}`;
+
+        // 执行页面跳转
+        window.location.href = targetURL;
+// 关闭对话框
+        closeLineSelectDialog();
+    }
+
+</script>
+
 
 <!-- 输入增加站点ID的对话框 -->
-<div id="inputInsertDialog" style="display: none;">
-    <p>请输入想要增加的站点信息：</p>
-    <label for="district">地区:</label>
-    <input type="String" id="district">
-    <label for="englishName">英文名:</label>
-    <input type="String" id="englishName">
-    <label for="chineseName">中文名:</label>
-    <input type="String" id="chineseName">
-    <label for="intro">介绍:</label>
-    <input type="String" id="intro">
-    <br><br>
-    <button id="insertConfirmButton">确认</button>
+<div id="inputInsertDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInsertDialog()">&times;</span>
+        <p>请输入想要增加的站点信息：</p>
+        <label for="district">地区:</label>
+        <input type="String" id="district">
+        <label for="englishName">英文名:</label>
+        <input type="String" id="englishName">
+        <label for="chineseName">中文名:</label>
+        <input type="String" id="chineseName">
+        <label for="intro">介绍:</label>
+        <input type="String" id="intro">
+        <br><br>
+        <button onclick="submitInsert()">提交</button>
+    </div>
 </div>
+<script>
+    function openInsertDialog() {
+        var insertDialog = document.getElementById("inputInsertDialog");
+        insertDialog.style.display = "block";
+    }
+    function closeInsertDialog() {
+        var insertDialog = document.getElementById("inputInsertDialog");
+        insertDialog.style.display = "none";
+    }
+    function submitInsert() {
+        var district = document.getElementById("district").value;
+        var englishName = document.getElementById("englishName").value;
+        var chineseName = document.getElementById("chineseName").value;
+        var intro = document.getElementById("intro").value;
+
+        var data = {
+            district: district,
+            englishName: englishName,
+            chineseName: chineseName,
+            intro: intro
+        };
+
+        fetch('http://localhost:8080/station/insert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('站点添加失败！');
+            })
+            .then(message => {
+                alert("站点添加成功！" + message);
+                // 成功后可以选择隐藏对话框和清除输入框的值
+                document.getElementById("inputInsertDialog").style.display = "none";
+                document.getElementById("district").value = '';
+                document.getElementById("englishName").value = '';
+                document.getElementById("chineseName").value = '';
+                document.getElementById("intro").value = '';
+            })
+            .catch(error => {
+                alert("站点添加失败：" + error.message);
+            });
+        // 关闭对话框
+        closeInsertDialog();
+    }
+</script>
+
 
 <!-- 输入删除站点ID的对话框 -->
-<div id="inputDeleteDialog" style="display: none;">
-    <p>请输入想要删除的站点ID：</p>
-    <input type="number" id="stationIdDelete">
-    <br><br>
-    <button id="deleteConfirmButton">确认</button>
+<div id="inputDeleteDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDeleteDialog()">&times;</span>
+        <p>请输入想要删除的站点ID：</p>
+        <input type="number" id="stationIdDelete">
+        <br><br>
+        <button onclick="submitDelete()">提交</button>
+    </div>
 </div>
+<script>
+    function openDeleteDialog() {
+        var deleteDialog = document.getElementById("inputDeleteDialog");
+        deleteDialog.style.display = "block";
+    }
+    function closeDeleteDialog() {
+        var deleteDialog = document.getElementById("inputDeleteDialog");
+        deleteDialog.style.display = "none";
+    }
+    function submitDelete() {
+        var stationId = document.getElementById("stationIdDelete").value;
+        if (stationId >= 1 && stationId <= 400) {
+            fetch('http://localhost:8080/station/delete?id=' + stationId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('站点删除失败！');
+                })
+                .then(message => {
+                    alert("站点删除成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputDeleteDialog").style.display = "none";
+                    document.getElementById("stationIdDelete").value = '';
+                })
+                .catch(error => {
+                    alert("站点删除失败：" + error.message);
+                });
+        } else {
+            alert("请输入1到400之间的数字！");
+        }
+// 关闭对话框
+        closeDeleteDialog();
+    }
+</script>
 
 
-<!-- 修改站点信息的对话框 -->
+<!-- 修改站点信息的对话框：有2个框的设计 -->
 <div id="updateDialog" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" onclick="closeUpdateDialog()">&times;</span>
@@ -156,8 +272,6 @@
         <button onclick="confirmUpdate()">确认</button>
     </div>
 </div>
-
-<!-- 显示站点信息的对话框 -->
 <div id="stationInfoDialog" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" onclick="closeStationInfoDialog()">&times;</span>
@@ -172,7 +286,6 @@
         <button onclick="submitUpdate()">提交</button>
     </div>
 </div>
-
 <script>
     function openUpdateDialog() {
         var dialog = document.getElementById("updateDialog");
@@ -242,9 +355,6 @@
     }
 </script>
 
-
-
-
 <!-- 输入上车/下车乘客信息的对话框-->
 <div id="inputPassengerDialog" style="display: none;">
     <p>请输入乘客信息（ID与卡号选填一个）：</p>
@@ -260,102 +370,6 @@
     <button id="boardConfirmButton">进站</button>
     <button id="exitConfirmButton">出站</button>
 </div>
-
-
-<!-- 增加站点按钮逻辑 -->
-<script>
-    document.getElementById("insertButton").addEventListener("click", function() {
-        var dialog = document.getElementById("inputInsertDialog");
-        if (dialog.style.display === "none" || dialog.style.display === "") {
-            dialog.style.display = "block";
-        } else {
-            dialog.style.display = "none";
-        }
-    });
-
-    // 当点击确认按钮时读取输入数据，并发送到服务器
-    document.getElementById("insertConfirmButton").addEventListener("click", function() {
-        var district = document.getElementById("district").value;
-        var englishName = document.getElementById("englishName").value;
-        var chineseName = document.getElementById("chineseName").value;
-        var intro = document.getElementById("intro").value;
-
-        var data = {
-            district: district,
-            englishName: englishName,
-            chineseName: chineseName,
-            intro: intro
-        };
-
-        fetch('http://localhost:8080/station/insert', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
-                }
-                throw new Error('站点添加失败！');
-            })
-            .then(message => {
-                alert("站点添加成功！" + message);
-                // 成功后可以选择隐藏对话框和清除输入框的值
-                document.getElementById("inputInsertDialog").style.display = "none";
-                document.getElementById("district").value = '';
-                document.getElementById("englishName").value = '';
-                document.getElementById("chineseName").value = '';
-                document.getElementById("intro").value = '';
-            })
-            .catch(error => {
-                alert("站点添加失败：" + error.message);
-            });
-    });
-</script>
-
-<!-- 删除站点按钮逻辑 -->
-<script>
-    document.getElementById("deleteButton").addEventListener("click", function() {
-// 弹出输入框
-        var dialog = document.getElementById("inputDeleteDialog");
-        if (dialog.style.display === "none" || dialog.style.display === "") {
-            dialog.style.display = "block";
-        } else {
-            dialog.style.display = "none";
-        }
-    });
-
-    document.getElementById("deleteConfirmButton").addEventListener("click", function() {
-        var stationId = document.getElementById("stationIdDelete").value;
-        if (stationId >= 1 && stationId <= 306) {
-            fetch('http://localhost:8080/station/delete?id=' + stationId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    }
-                    throw new Error('站点删除失败！');
-                })
-                .then(message => {
-                    alert("站点删除成功！" + message);
-                    // 成功后可以选择隐藏对话框和清除输入框的值
-                    document.getElementById("inputDeleteDialog").style.display = "none";
-                    document.getElementById("stationIdDelete").value = '';
-                })
-                .catch(error => {
-                    alert("站点删除失败：" + error.message);
-                });
-        } else {
-            alert("请输入1到306之间的数字！");
-        }
-    });
-</script>
 
 <!-- 乘客上下车按钮逻辑 -->
 <script>

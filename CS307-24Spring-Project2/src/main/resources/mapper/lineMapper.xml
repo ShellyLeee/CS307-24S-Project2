@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 定义了一个名为 “lineMapper” 的映射器 -->
+<mapper namespace="cs307.cs30724springproject2.mapper.lineMapper">
+    <!-- 查询线路信息 -->
+    <select id="selectByName" parameterType="String" resultType="line">
+        SELECT * FROM line WHERE name = #{name}
+    </select>
+
+    <!-- 删除线路信息 -->
+    <delete id="deleteByName" parameterType="String">
+        DELETE FROM line WHERE name = #{name}
+    </delete>
+
+    <!-- 插入线路信息 -->
+    <insert id="insertLine" parameterType="line">
+        INSERT INTO line (name, start_time, end_time, intro, mileage, color, first_opening, url) VALUES (#{name}, #{start_time}, #{end_time}, #{intro}, #{mileage}, #{color}, #{first_opening}, #{url})
+    </insert>
+
+    <!-- 修改线路信息 -->
+    <update id="updateByName" parameterType="line">
+        UPDATE line SET name = #{name}, start_time = #{start_time}, end_time = #{end_time}, intro = #{intro}, mileage = #{mileage}, color = #{color}, first_opening = #{first_opening}, url = #{url} WHERE name = #{name}
+    </update>
+
+</mapper>
