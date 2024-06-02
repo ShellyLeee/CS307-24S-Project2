@@ -1,15 +1,16 @@
 package cs307.cs30724springproject2.entity;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class line {
 
     private String name;
 
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
-    private LocalDateTime endTime;
+    private LocalTime endTime;
 
     private String intro;
 
@@ -17,7 +18,7 @@ public class line {
 
     private String color;
 
-    private LocalDateTime firstOpening;
+    private LocalDate firstOpening;
 
     private String url;
 
@@ -29,19 +30,19 @@ public class line {
         this.name = name;
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -69,11 +70,11 @@ public class line {
         this.color = color;
     }
 
-    public LocalDateTime getFirstOpening() {
+    public LocalDate getFirstOpening() {
         return firstOpening;
     }
 
-    public void setFirstOpening(LocalDateTime firstOpening) {
+    public void setFirstOpening(LocalDate firstOpening) {
         this.firstOpening = firstOpening;
     }
 

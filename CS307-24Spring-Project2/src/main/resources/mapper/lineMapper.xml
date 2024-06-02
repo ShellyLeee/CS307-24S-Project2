@@ -15,12 +15,12 @@
 
     <!-- 插入线路信息 -->
     <insert id="insertLine" parameterType="line">
-        INSERT INTO line (name, start_time, end_time, intro, mileage, color, first_opening, url) VALUES (#{name}, #{start_time}, #{end_time}, #{intro}, #{mileage}, #{color}, #{first_opening}, #{url})
+        INSERT INTO line (name, start_time, end_time, intro, mileage, color, first_opening, url) VALUES (#{name}, #{startTime}, #{endTime}, #{intro}, #{mileage}, #{color}, #{firstOpening}, #{url})
     </insert>
 
     <!-- 修改线路信息 -->
     <update id="updateByName" parameterType="line">
-        UPDATE line SET name = #{name}, start_time = #{start_time}, end_time = #{end_time}, intro = #{intro}, mileage = #{mileage}, color = #{color}, first_opening = #{first_opening}, url = #{url} WHERE name = #{name}
+        UPDATE line SET name = #{name}, start_time = #{startTime}, end_time = #{endTime}, intro = #{intro}, mileage = #{mileage}, color = #{color}, first_opening = #{firstOpening}, url = #{url} WHERE name = #{name}
     </update>
 
 </mapper>

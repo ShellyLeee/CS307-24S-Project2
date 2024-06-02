@@ -481,6 +481,126 @@
     }
 </script>
 
+
+<!-- 修改线路信息的对话框：有2个框的设计 -->
+<div id="updateLineDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeLineUpdateDialog()">&times;</span>
+        <p>请输入想修改的线路中文名：</p>
+        <input type="text" id="chineseLineNameInput">
+        <br><br>
+        <button onclick="confirmLineUpdate()">确认</button>
+    </div>
+</div>
+<div id="lineInfoDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeLineInfoDialog()">&times;</span>
+        <p id="lineInfo"></p>
+        <!-- 这里添加四个框，用来输入需要修改的内容 -->
+        <label for="nameInput">线路名称:</label>
+        <input type="text" id="nameInput" placeholder="线路名称">
+        <label for="startTimeInput">起始时间:</label>
+        <input type="text" id="startTimeInput" placeholder="起始时间">
+        <label for="endTimeInput">终止时间:</label>
+        <input type="text" id="endTimeInput" placeholder="终止时间">
+        <label for="introInput1">简介:</label>
+        <input type="text" id="introInput1" placeholder="简介">
+        <label for="mileageInput">英里数:</label>
+        <input type="text" id="mileageInput" placeholder="英里数">
+        <label for="colorInput">线路颜色:</label>
+        <input type="text" id="colorInput" placeholder="线路颜色">
+        <label for="firstOpeningInput">首开日期:</label>
+        <input type="text" id="firstOpeningInput" placeholder="首开日期">
+        <label for="urlInput">url:</label>
+        <input type="text" id="urlInput" placeholder="url">
+        <br><br>
+        <button onclick="submitLineUpdate()">提交</button>
+    </div>
+</div>
+<script>
+    function openLineUpdateDialog() {
+        var dialog = document.getElementById("updateLineDialog");
+        dialog.style.display = "block";
+    }
+
+    function closeLineUpdateDialog() {
+        var dialog = document.getElementById("updateLineDialog");
+        dialog.style.display = "none";
+    }
+
+    function closeLineInfoDialog() {
+        var dialog = document.getElementById("lineInfoDialog");
+        dialog.style.display = "none";
+    }
+
+    function confirmLineUpdate() {
+        var chineseName = document.getElementById("chineseLineNameInput").value;
+        // 调用后端接口获取站点信息
+        fetch(`http://localhost:8080/line/selectByName?name=${chineseName}`)
+            .then(response => response.json())
+            .then(data => {
+                // 显示站点信息的对话框
+                var dialog = document.getElementById("lineInfoDialog");
+                dialog.style.display = "block";
+                // 更新站点信息对话框中的内容
+                document.getElementById("nameInput").value = data.name;
+                document.getElementById("startTimeInput").value = data.startTime;
+                document.getElementById("endTimeInput").value = data.endTime;
+                document.getElementById("introInput1").value = data.intro;
+                document.getElementById("mileageInput").value = data.mileage;
+                document.getElementById("colorInput").value = data.color;
+                document.getElementById("firstOpeningInput").value = data.firstOpening;
+                document.getElementById("urlInput").value = data.url;
+            })
+            .catch(error => console.error('Error:', error));
+        closeLineUpdateDialog();
+    }
+
+    function submitLineUpdate() {
+        var name = document.getElementById("nameInput").value;
+        var startTime = document.getElementById("startTimeInput").value;
+        var endTime = document.getElementById("endTimeInput").value;
+        var intro = document.getElementById("introInput1").value;
+        var mileage = document.getElementById("mileageInput").value;
+        var color = document.getElementById("colorInput").value;
+        var firstOpening = document.getElementById("firstOpeningInput").value;
+        var url = document.getElementById("urlInput").value;
+        var data = {
+            name: name,
+            startTime: startTime,
+            endTime: endTime,
+            intro: intro,
+            mileage: mileage,
+            color: color,
+            firstOpening: firstOpening,
+            url: url
+        };
+        fetch('http://localhost:8080/line/updateLine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('线路修改失败！');
+            })
+            .then(message => {
+                alert("线路修改成功！" + message);
+            })
+            .catch(error => {
+                alert("线路修改失败：" + error.message);
+            });
+        closeLineInfoDialog();
+    }
+</script>
+
+
+
+
 <!-- 输入上车/下车乘客信息的对话框-->
 <div id="inputPassengerDialog" style="display: none;">
     <p>请输入乘客信息（ID与卡号选填一个）：</p>
