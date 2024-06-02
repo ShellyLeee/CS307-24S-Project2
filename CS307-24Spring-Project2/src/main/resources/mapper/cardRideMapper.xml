@@ -3,30 +3,34 @@
 
 <mapper namespace="cs307.cs30724springproject2.mapper.cardRideMapper">
     <insert id="insert" parameterType="cardRide">
-        INSERT INTO cardRide (card_code, start_station, end_station, price, start_time, end_time)
-        VALUES (#{card_code}, #{start_station}, #{end_station}, #{price}, #{start_time}, #{end_time})
+        INSERT INTO card_ride (card_code, start_station, end_station, price, start_time, end_time)
+        VALUES (#{code}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
     </insert>
 
-    <!-- 多参数查询ride:card_code,start_station,end_station,price -->
+    <!-- 多参数查询ride:设置参数start/endStation，cardCode, price，timeInterval -->
     <select id="selectCardRideByParameters" resultType="cardRide">
         SELECT * FROM card_ride
         <where>
-            <if test="param1 != null">
-                AND column1 = #{param1}
+            <if test="cardCode != null">
+                AND card_code = #{cardCode}
             </if>
-            <if test="param2 != null">
-                AND column2 = #{param2}
+            <if test="startStation != null">
+                AND start_station = #{startStation}
             </if>
-            <if test="param1 != null">
-                AND column1 = #{param1}
+            <if test="endStation != null">
+                AND end_station = #{endStation}
             </if>
-            <if test="param1 != null">
-                AND column1 = #{param1}
+            <if test="price != null">
+                AND price = #{price}
             </if>
-            <!-- 可以根据需要添加更多的条件 -->
+            <if test="startTime != null">
+                AND start_time &gt;= #{startTime, javaType=java.sql.Timestamp}
+            </if>
+            <if test="endTime != null">
+                AND end_time &lt;= #{endTime, javaType=java.sql.Timestamp}
+            </if>
         </where>
     </select>
-
 
 
 </mapper>

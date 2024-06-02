@@ -9,6 +9,9 @@ import cs307.cs30724springproject2.mapper.cardOnboardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class cardRideService {
 
@@ -32,4 +35,10 @@ public class cardRideService {
         cardRide.setStartTime(boardedCard.getStartTime());
         cardRideMapper.insert(cardRide);
     }
+
+    public List<cardRide> getCardRidesByParameters(String cardCode, String startStation, String endStation, Integer price, LocalDateTime startTime, LocalDateTime endTime) {
+        return cardRideMapper.selectCardRideByParameters(cardCode, startStation, endStation, price, startTime, endTime);
+    }
+
+
 }

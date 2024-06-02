@@ -4,6 +4,7 @@ import cs307.cs30724springproject2.entity.cardRide;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -21,5 +22,12 @@ public interface cardRideMapper {
 
     int updateByPrimaryKey(cardRide row);
 
-    List<cardRide> selectCardRideByParameters(@Param("param1") String param1, @Param("param2") String param2);
+    List<cardRide> selectCardRideByParameters(
+            @Param("cardCode") String cardCode,
+            @Param("startStation") String startStation,
+            @Param("endStation") String endStation,
+            @Param("price") Integer price,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime
+    );
 }

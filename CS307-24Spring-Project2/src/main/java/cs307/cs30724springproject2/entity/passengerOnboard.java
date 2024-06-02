@@ -1,12 +1,13 @@
 package cs307.cs30724springproject2.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class passengerOnboard {
     private Integer id;
     private String passengerId;
     private String startStation;
-    private Date startTime;
+    private LocalDateTime startTime;
 
     public Integer getId() { return id; }
 
@@ -20,7 +21,7 @@ public class passengerOnboard {
 
     public void setStartStation(String startStation) { this.startStation = startStation; }
 
-    public Date getStartTime() { return startTime; }
+    public LocalDateTime getStartTime() { return startTime; }
 
-    public void setStartTime(Date startTime) { this.startTime = startTime; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
 }

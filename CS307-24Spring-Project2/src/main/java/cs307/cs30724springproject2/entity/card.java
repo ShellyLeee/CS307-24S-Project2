@@ -1,6 +1,6 @@
 package cs307.cs30724springproject2.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class card {
 
@@ -8,9 +8,9 @@ public class card {
 
     private int money;
 
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    public card(String number, int i, Date date) {
+    public card(String number, int i, LocalDateTime date) {
         this.code = number;
         this.money = i;
         this.createTime = date;
@@ -33,12 +33,12 @@ public class card {
         this.money = money;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 }

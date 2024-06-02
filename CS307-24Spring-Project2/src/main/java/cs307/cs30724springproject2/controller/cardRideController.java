@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
 @RequestMapping("/cardRide")
 public class cardRideController {
     @Autowired
@@ -26,4 +27,20 @@ public class cardRideController {
         }
     }
 
+    @GetMapping("/multiSelect")
+    public List<cardRide> getCardRides(
+            @RequestParam(required = false) String cardCode,
+            @RequestParam(required = false) String startStation,
+            @RequestParam(required = false) String endStation,
+            @RequestParam(required = false) Integer price,
+            @RequestParam(required = false) LocalDateTime startTime,
+            @RequestParam(required = false) LocalDateTime endTime
+    ) {
+        List<cardRide> target = cardRideService.getCardRidesByParameters(cardCode, startStation, endStation, price, startTime, endTime);
+        for (cardRide cardRide : target) {
+            System.out.println(cardRide); // 假设CardRide类已经实现了toString()方法
+        }
+        return cardRideService.getCardRidesByParameters(cardCode, startStation, endStation, price, startTime, endTime);
+    }
 }
+
