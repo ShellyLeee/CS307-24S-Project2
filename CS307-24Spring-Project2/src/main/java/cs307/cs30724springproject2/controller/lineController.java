@@ -17,7 +17,6 @@ public class lineController {
     @GetMapping(value = "/selectByNameInfo",produces = "application/json;charset=utf-8")
     public String selectByNameInfo(@RequestParam("name") String name, Model model) {
         line lineT = lineService.findLineByName(name);
-        System.out.println(lineT.getStartTime());
         model.addAttribute("line", lineT);
         return "lineInfo"; // 返回线路信息的HTML页面
     }

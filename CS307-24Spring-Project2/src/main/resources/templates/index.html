@@ -106,14 +106,15 @@
         var startTimeInput = document.getElementById("startTimeCInput").value;
         var endTimeInput = document.getElementById("endTimeCInput").value;
 
-// 将输入的文本解析为 Date 对象
-        var startTime = new Date(startTimeInput);
-        var endTime = new Date(endTimeInput);
+        if (startTimeInput && endTimeInput) {
+            // 将输入的文本解析为 Date 对象
+            var startTime = new Date(startTimeInput);
+            var endTime = new Date(endTimeInput);
 
-// 将 Date 对象转换为 ISO 8601 格式的字符串
-        var startTimeISO = startTime.toISOString();
-        var endTimeISO = endTime.toISOString();
-
+            // 将 Date 对象转换为 ISO 8601 格式的字符串
+            var startTimeISO = startTime.toISOString();
+            var endTimeISO = endTime.toISOString();
+        }
 // 构建URL
         var url = "/cardRide/multiSelect?";
         if (cardCode) url += "cardCode=" + cardCode + "&";
@@ -122,6 +123,9 @@
         if (price) url += "price=" + price + "&";
         if (startTimeISO) url += "startTime=" + startTimeISO + "&";
         if (endTimeISO) url += "endTime=" + endTimeISO + "&";
+
+        // 跳转到查询结果页面
+        window.location.href = url;
 
 // 发送GET请求
         fetch(url, {

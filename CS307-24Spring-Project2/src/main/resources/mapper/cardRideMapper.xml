@@ -12,22 +12,22 @@
         SELECT * FROM card_ride
         <where>
             <if test="cardCode != null">
-                AND card_code = #{cardCode}
+                AND card_code = #{cardCode,jdbcType=VARCHAR}
             </if>
             <if test="startStation != null">
-                AND start_station = #{startStation}
+                AND start_station = #{startStation,jdbcType=VARCHAR}
             </if>
             <if test="endStation != null">
-                AND end_station = #{endStation}
+                AND end_station = #{endStation,jdbcType=VARCHAR}
             </if>
             <if test="price != null">
-                AND price = #{price}
+                AND price = #{price,jdbcType=INTEGER}
             </if>
             <if test="startTime != null">
-                AND start_time &gt;= #{startTime, javaType=java.sql.Timestamp}
+                AND start_time &gt;= #{startTime,jdbcType=TIMESTAMP}
             </if>
             <if test="endTime != null">
-                AND end_time &lt;= #{endTime, javaType=java.sql.Timestamp}
+                AND end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
             </if>
         </where>
     </select>
