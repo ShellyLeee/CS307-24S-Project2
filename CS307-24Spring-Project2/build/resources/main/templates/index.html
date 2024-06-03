@@ -451,7 +451,7 @@
     }
 
     function submitUpdate() {
-        
+
         closeSpecificInsertSelectDialog();
     }
 </script>
@@ -778,7 +778,8 @@
     <label for="exit_station">终到站:</label>
     <input type="String" id="exit_station">
     <br><br>
-    <button id="boardConfirmButton">进站</button>
+    <button id="boardConfirmButton1">普通车厢进站</button>
+    <button id="boardConfirmButton2">商务车厢进站</button>
     <button id="exitConfirmButton">出站</button>
 </div>
 
@@ -794,16 +795,17 @@
         }
     });
 
-    document.getElementById("boardConfirmButton").addEventListener("click", function () {
+    document.getElementById("boardConfirmButton1").addEventListener("click", function () {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var time = new Date().getTime();
         if (ID != '') {
             var data = {
-                passenger_id: ID,
-                start_station: startStation,
-                start_time: time,
+                passengerId: ID,
+                startStation: startStation,
+                startTime: time,
+                type: '普通',
             };
             fetch('http://localhost:8080/passengerOnboard/insert', {
                 method: 'POST',
@@ -823,7 +825,6 @@
                     // 成功后可以选择隐藏对话框和清除输入框的值
                     document.getElementById("inputPassengerDialog").style.display = "none";
                     document.getElementById("PassengerID").value = '';
-                    document.getElementById("englishName").value = '';
                     document.getElementById("start_station").value = '';
                 })
                 .catch(error => {
@@ -831,9 +832,10 @@
                 });
         } else if (code != ''){
             var data = {
-                card_code: code,
-                start_station: startStation,
-                start_time: time,
+                cardCode: code,
+                startStation: startStation,
+                startTime: time,
+                type: '普通',
             };
             fetch('http://localhost:8080/cardOnboard/insert', {
                 method: 'POST',
@@ -852,8 +854,75 @@
                     alert("乘客进站成功！" + message);
                     // 成功后可以选择隐藏对话框和清除输入框的值
                     document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("CardCode").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        }
+    })
+
+    document.getElementById("boardConfirmButton2").addEventListener("click", function () {
+        var ID = document.getElementById("PassengerID").value;
+        var code = document.getElementById("CardCode").value;
+        var startStation = document.getElementById("start_station").value;
+        var time = new Date().getTime();
+        if (ID != '') {
+            var data = {
+                passengerId: ID,
+                startStation: startStation,
+                startTime: time,
+                type: '商务',
+            };
+            fetch('http://localhost:8080/passengerOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
                     document.getElementById("PassengerID").value = '';
-                    document.getElementById("englishName").value = '';
+                    document.getElementById("start_station").value = '';
+                })
+                .catch(error => {
+                    alert("乘客进站失败：" + error.message);
+                });
+        } else if (code != ''){
+            var data = {
+                cardCode: code,
+                startStation: startStation,
+                startTime: time,
+                type: '商务',
+            };
+            fetch('http://localhost:8080/cardOnboard/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('乘客进站失败！');
+                })
+                .then(message => {
+                    alert("乘客进站成功！" + message);
+                    // 成功后可以选择隐藏对话框和清除输入框的值
+                    document.getElementById("inputPassengerDialog").style.display = "none";
+                    document.getElementById("CardCode").value = '';
                     document.getElementById("start_station").value = '';
                 })
                 .catch(error => {
@@ -870,10 +939,10 @@
         var time = new Date().getTime();
         if (ID != null) {
             var data = {
-                passenger_id: ID,
-                start_station: startStation,
-                end_station: endStation,
-                end_time: time,
+                passengerId: ID,
+                startStation: startStation,
+                endStation: endStation,
+                endTime: time,
             };
             //添加ride
             fetch('http://localhost:8080/passengerRide/insert', {
@@ -915,7 +984,6 @@
                     // 成功后可以选择隐藏对话框和清除输入框的值
                     document.getElementById("inputPassengerDialog").style.display = "none";
                     document.getElementById("PassengerID").value = '';
-                    document.getElementById("englishName").value = '';
                     document.getElementById("start_station").value = '';
                     document.getElementById("exit_station").value = '';
                 })
@@ -924,10 +992,10 @@
                 });
         } else if (code != null){
             var data = {
-                card_code: code,
-                start_station: startStation,
-                end_station: endStation,
-                end_time: time,
+                cardCode: code,
+                startStation: startStation,
+                endStation: endStation,
+                endTime: time,
             };
             fetch('http://localhost:8080/cardRide/insert', {
                 method: 'POST',
@@ -965,7 +1033,6 @@
                     // 成功后可以选择隐藏对话框和清除输入框的值
                     document.getElementById("inputPassengerDialog").style.display = "none";
                     document.getElementById("CardCode").value = '';
-                    document.getElementById("englishName").value = '';
                     document.getElementById("start_station").value = '';
                     document.getElementById("exit_station").value = '';
                 })
