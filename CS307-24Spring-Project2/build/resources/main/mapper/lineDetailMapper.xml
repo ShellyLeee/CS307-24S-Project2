@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 定义了一个名为 “lineDetailMapper” 的映射器 -->
+<mapper namespace="cs307.cs30724springproject2.mapper.lienDetailMapper">
+
+
+</mapper>

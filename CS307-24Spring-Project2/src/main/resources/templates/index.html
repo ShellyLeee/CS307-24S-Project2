@@ -64,6 +64,9 @@
     <button onclick="openLineSelectDialog()">查询线路</button>
     <button onclick="openLineUpdateDialog()">修改线路</button>
     <br><br>
+    <button onclick="openSpecificInsertDialog()">地铁线指定位置增加站点</button>
+    <button onclick="openSpecificDeleteDialog()">地铁线指定位置删除站点</button>
+    <br><br>
     <button id="boardExitButton">出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
     <button id="viewCardButton">查询进站公交卡</button>
@@ -224,7 +227,7 @@
 </script>
 
 
-<!-- 输入增加站点ID的对话框 -->
+<!-- 输入增加站点的对话框 -->
 <div id="inputInsertDialog" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeInsertDialog()">&times;</span>
@@ -370,6 +373,86 @@
             });
         // 关闭对话框
         closeLineInsertDialog();
+    }
+</script>
+
+<!-- 输入增加一个或多个站点到地铁线指定位置的对话框 -->
+<div id="specificInsertDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeSpecificInsertDialog()">&times;</span>
+        <p>请输入想插入的目标线路中文名：</p>
+        <label for="lineT">线路:</label>
+        <input type="String" id="lineT">
+        <p>请输入想插入的目标站点中文名：</p>
+        <label for="stationT">站点:</label>
+        <input type="String" id="stationT">
+        <p>请选择插入先后顺序：</p>
+        <label for="insertFirst">先</label>
+        <input type="radio" id="insertFirst" name="insertOrder" value="first">
+        <label for="insertSecond">后</label>
+        <input type="radio" id="insertSecond" name="insertOrder" value="second">
+        <p>请输入想插入的站点个数：</p>
+        <label for="stationNumber">个数:</label>
+        <input type="number" id="stationNumber">
+        <br><br>
+        <button onclick="confirmSpecificInsertUpdate()">确认</button>
+    </div>
+</div>
+<div id="specificInsertSelectDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeSpecificInsertSelectDialog()">&times;</span>
+        <form id="insertForm">
+            <p>请输入想要插入的站点中文名：</p>
+            <div id="stationInputs">
+                <!-- 这里将会动态生成对应数量的输入框 -->
+            </div>
+            <br><br>
+            <button type="button" onclick="submitSpecificInsertSelectUpdate()">提交</button>
+        </form>
+    </div>
+</div>
+<script>
+    function openSpecificInsertDialog() {
+        var dialog = document.getElementById("specificInsertDialog");
+        dialog.style.display = "block";
+    }
+
+    function openSpecificInsertSelectDialog() {
+        var dialog = document.getElementById("specificInsertSelectDialog");
+        dialog.style.display = "block";
+    }
+
+    function closeSpecificInsertDialog() {
+        var dialog = document.getElementById("specificInsertDialog");
+        dialog.style.display = "none";
+    }
+
+    function closeSpecificInsertSelectDialog() {
+        var dialog = document.getElementById("specificInsertSelectDialog");
+        dialog.style.display = "none";
+    }
+
+    function confirmSpecificInsertUpdate() {
+        var stationNumber = document.getElementById('stationNumber').value;
+        var stationInputs = document.getElementById('stationInputs');
+        stationInputs.innerHTML = ''; // 清空之前的输入框
+
+        for (var i = 0; i < stationNumber; i++) {
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'stationName' + i; // 给每个输入框一个独特的名称
+            input.placeholder = '请输入第' + (i+1) + '个站点的中文名';
+            stationInputs.appendChild(input);
+            stationInputs.appendChild(document.createElement('br')); // 每个输入框后面添加换行
+        }
+
+        openSpecificInsertSelectDialog(); // 打开选择站点的弹窗
+        closeSpecificInsertDialog();
+    }
+
+    function submitUpdate() {
+
+        closeSpecificInsertSelectDialog();
     }
 </script>
 
