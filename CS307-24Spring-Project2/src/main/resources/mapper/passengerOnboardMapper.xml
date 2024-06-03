@@ -21,7 +21,7 @@
 
     <!-- 插入乘客信息 -->
     <insert id="insert" parameterType="passengerOnboard">
-        INSERT INTO passenger_onboard (passenger_id, start_station, start_time) VALUES (#{passengerId}, #{station}, #{startTime})
+        INSERT INTO passenger_onboard (passenger_id, start_station, start_time, type) VALUES (#{passengerId}, #{station}, #{startTime}, #{type})
     </insert>
 
 

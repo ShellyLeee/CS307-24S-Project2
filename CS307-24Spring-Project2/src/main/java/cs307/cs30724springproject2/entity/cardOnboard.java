@@ -8,6 +8,7 @@ public class cardOnboard {
     private String cardCode;
     private String startStation;
     private LocalDateTime startTime;
+    private String type;
 
     public Integer getId() {return id;}
 
@@ -24,4 +25,8 @@ public class cardOnboard {
     public LocalDateTime getStartTime() {return startTime;}
 
     public void setStartTime(LocalDateTime startTime) {this.startTime = startTime;}
+
+    public String getType() {return type;}
+
+    public void setType(String type) {this.type = type;}
 }
