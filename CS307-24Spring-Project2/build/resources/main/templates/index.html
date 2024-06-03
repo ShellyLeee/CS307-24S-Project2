@@ -450,7 +450,113 @@
         closeSpecificInsertDialog();
     }
 
-    function submitUpdate() {
+    function submitSpecificInsertSelectUpdate() {
+        var stationValues = []; // Array to store station names
+        var stationNumber = document.getElementById('stationNumber').value;
+
+        // Loop through each input field to collect values
+        for (var i = 0; i < stationNumber; i++) {
+            var stationInput = document.getElementsByName('stationName' + i)[0].value;
+            stationValues.push(stationInput);
+        }
+
+        // Other parameters like lineName
+        var lineName = document.getElementById('lineT').value;
+        var stationName = document.getElementById('stationT').value;
+        var order = document.querySelector('input[name="insertOrder"]:checked').value;
+
+        // Prepare data object to send to backend
+        var data1 = {
+            n: stationNumber,
+            lineName: lineName,
+            stationName: stationName
+        };
+
+        var data2 = {
+            lineName: lineName,
+            stationNames: stationValues // Sending station names as an array
+        };
+
+        if (order === "first") {
+            fetch('/updateInsertStationNoFront', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data1),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        respondUpdateFront()
+                    }
+                    // Handle response if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        }
+        else if(order === "second"){
+            fetch('/updateInsertStationNoBehind', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data1),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        respondUpdateBehind()
+                    }
+                    // Handle response if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+
+        }
+
+        function respondUpdateFront(){
+            fetch('/insertMultipleStationsFront', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data2),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Handle response if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        }
+
+        function respondUpdateBehind(){
+            fetch('/insertMultipleStationsBehind', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data2),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Handle response if needed
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        }
+
+
+
 
         closeSpecificInsertSelectDialog();
     }
@@ -799,7 +905,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date(new Date().getTime()).toISOString();
+        var time = new Date().getTime();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -867,7 +973,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date(new Date().getTime()).toISOString();
+        var time = new Date().getTime();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -936,7 +1042,7 @@
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var endStation = document.getElementById("exit_station").value;
-        var time = new Date(new Date().getTime()).toISOString();
+        var time = new Date().getTime();
         if (ID != null) {
             var data = {
                 passengerId: ID,
