@@ -383,7 +383,7 @@
         <p>请输入想插入的目标线路中文名：</p>
         <label for="lineT">线路:</label>
         <input type="String" id="lineT">
-        <p>请输入想插入的目标站点中文名：</p>
+        <p>请输入想插入的目标站点英文名：</p>
         <label for="stationT">站点:</label>
         <input type="String" id="stationT">
         <p>请选择插入先后顺序：</p>
@@ -402,7 +402,7 @@
     <div class="modal-content">
         <span class="close" onclick="closeSpecificInsertSelectDialog()">&times;</span>
         <form id="insertForm">
-            <p>请输入想要插入的站点中文名：</p>
+            <p>请输入想要插入的站点英文名：</p>
             <div id="stationInputs">
                 <!-- 这里将会动态生成对应数量的输入框 -->
             </div>
@@ -441,7 +441,7 @@
             var input = document.createElement('input');
             input.type = 'text';
             input.name = 'stationName' + i; // 给每个输入框一个独特的名称
-            input.placeholder = '请输入第' + (i+1) + '个站点的中文名';
+            input.placeholder = '请输入第' + (i+1) + '个站点的英文名';
             stationInputs.appendChild(input);
             stationInputs.appendChild(document.createElement('br')); // 每个输入框后面添加换行
         }
@@ -474,7 +474,8 @@
 
         var data2 = {
             lineName: lineName,
-            stationNames: stationValues // Sending station names as an array
+            stationName: stationName,
+            stations: stationValues // Sending station names as an array
         };
 
         if (order === "first") {
@@ -488,9 +489,9 @@
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
-                        respondUpdateFront()
                     }
                     // Handle response if needed
+                    respondUpdateFront()
                 })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
@@ -507,9 +508,9 @@
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
-                        respondUpdateBehind()
                     }
                     // Handle response if needed
+                    respondUpdateBehind()
                 })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);

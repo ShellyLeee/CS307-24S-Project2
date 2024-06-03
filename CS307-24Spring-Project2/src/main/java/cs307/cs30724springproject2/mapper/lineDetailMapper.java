@@ -11,6 +11,6 @@ import java.util.Map;
 public interface lineDetailMapper {
     void updateInsertStationNoBehind(Map<String, Object> parameters);
     void updateInsertStationNoFront(Map<String, Object> parameters);
-    void insertMultipleStationsBehind(@Param("lineName") String lineName, @Param("stations") List<Map<String, Object>> stations);
+    void insertMultipleStationsBehind(@Param("lineName") String lineName, @Param("stationName") String stationName, @Param("stations") List<Map<String, Object>> stations);
 
 }

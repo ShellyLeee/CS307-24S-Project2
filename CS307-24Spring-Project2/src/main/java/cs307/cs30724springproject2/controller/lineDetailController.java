@@ -2,11 +2,15 @@ package cs307.cs30724springproject2.controller;
 
 import cs307.cs30724springproject2.entity.station;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import cs307.cs30724springproject2.service.lineDetailService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +29,25 @@ public class lineDetailController {
     }
 
     @PostMapping("/insertMultipleStationsBehind")
-    public void insertMultipleStations(@RequestBody Map<String, Object> request) {
-        String lineName = (String) request.get("lineName");
-        List<Map<String, Object>> stations = (List<Map<String, Object>>) request.get("stations");
-        lineDetailService.insertMultipleStationsBehind(lineName, stations);
+    public ResponseEntity<String> insertMultipleStationsBehind(@RequestBody Map<String, Object> request) {
+        try {
+            String lineName = (String) request.get("lineName");
+            String stationName = (String) request.get("stationName");
+            List<String> stationValues = (List<String>) request.get("stations");
+
+            // 将站点名称转换为Map格式的列表
+            List<Map<String, Object>> stations = new ArrayList<>();
+            for (String stationName1 : stationValues) {
+                Map<String, Object> stationMap = new HashMap<>();
+                stationMap.put("name", stationName1);
+                stations.add(stationMap);
+            }
+
+            lineDetailService.insertMultipleStationsBehind(lineName, stationName, stations);
+            return ResponseEntity.ok("Stations inserted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inserting stations: " + e.getMessage());
+        }
     }
 
 

@@ -16,13 +16,14 @@ public class lineDetailService {
         lineDetailMapper.updateInsertStationNoBehind(Map.of("n", n, "lineName", lineName, "stationName", stationName));
     }
 
-    public void insertMultipleStationsBehind(String lineName, List<Map<String, Object>> stations) {
+    public void insertMultipleStationsBehind(String lineName, String stationName, List<Map<String, Object>> stations) {
         int increment = 1;
         for (Map<String, Object> station : stations) {
             station.put("stationNoIncrement", increment);
+            System.out.println(increment);
             increment++;
         }
-        lineDetailMapper.insertMultipleStationsBehind(lineName, stations);
+        lineDetailMapper.insertMultipleStationsBehind(lineName, stationName, stations);
     }
 
     public void updateInsertStationNoFront(int n, String lineName, String stationName) {

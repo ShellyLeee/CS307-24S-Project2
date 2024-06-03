@@ -24,10 +24,11 @@
             #{lineName}, #{station.name},
             (
             SELECT station_no FROM line_detail
-            WHERE line_name = #{lineName} AND station_name = #{station.name}
+            WHERE line_name = #{lineName} AND station_name = #{stationName}
             ) + #{station.stationNoIncrement}
             )
         </foreach>
     </insert>
+
 
 </mapper>
