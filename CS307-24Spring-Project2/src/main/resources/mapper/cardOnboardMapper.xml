@@ -7,7 +7,7 @@
     </select>
 
     <select id="selectByCodeStation" parameterType="String">
-        SELECT * FROM card_onboard WHERE card_code = #{card_code} and start_station = #{station}
+        SELECT * FROM card_onboard WHERE card_code = #{cardCode} and start_station = #{startStation}
     </select>
 
     <!-- 删除乘客信息 -->
@@ -16,12 +16,12 @@
     </delete>
 
     <delete id="deleteByCodeStation" parameterType="String">
-        DELETE FROM card_onboard WHERE card_code = #{card_code} and start_station = #{station}
+        DELETE FROM card_onboard WHERE card_code = #{cardCode} and start_station = #{startStation}
     </delete>
 
     <!-- 插入乘客信息 -->
     <insert id="insert" parameterType="cardOnboard">
-        INSERT INTO card_onboard (card_code, start_station, start_time) VALUES (#{card_code}, #{station}, #{time})
+        INSERT INTO card_onboard (card_code, start_station, start_time) VALUES (#{cardCode}, #{startStation}, #{startTime})
     </insert>
 
 </mapper>
