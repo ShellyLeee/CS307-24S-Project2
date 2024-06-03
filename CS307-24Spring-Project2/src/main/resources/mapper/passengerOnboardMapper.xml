@@ -7,7 +7,7 @@
     </select>
 
     <select id="selectByIdStation" parameterType="String" resultType="passengerOnboard">
-        SELECT * FROM passenger WHERE passenger_id = #{passenger_id} and start_station = #{station}
+        SELECT * FROM passenger WHERE passenger_id = #{passengerId} and start_station = #{startStation}
     </select>
 
     <!-- 删除乘客信息 -->
@@ -16,12 +16,12 @@
     </delete>
 
     <delete id="deleteByIdStation" parameterType="String">
-        DELETE FROM passenger_onboard WHERE passenger_id = #{passenger_id} and start_station = #{station}
+        DELETE FROM passenger_onboard WHERE passenger_id = #{passengerId} and start_station = #{startStation}
     </delete>
 
     <!-- 插入乘客信息 -->
     <insert id="insert" parameterType="passengerOnboard">
-        INSERT INTO passenger_onboard (passenger_id, start_station, start_time) VALUES (#{passenger_id}, #{station}, #{time})
+        INSERT INTO passenger_onboard (passenger_id, start_station, start_time) VALUES (#{passengerId}, #{station}, #{startTime})
     </insert>
 
 

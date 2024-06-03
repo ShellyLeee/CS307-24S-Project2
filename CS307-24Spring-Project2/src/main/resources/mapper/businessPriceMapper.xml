@@ -6,7 +6,7 @@
     <!-- 查询价格信息，希望可以改成输出的是数值-->
     <select id="selectByStations" parameterType="String" resultType="price">
         SELECT * FROM business_price
-                 WHERE start_station = #{start_station} and end_station = #{end_station}
+                 WHERE start_station = #{startStation} and end_station = #{endStation}
     </select>
 
 
