@@ -3,8 +3,8 @@
 
 <mapper namespace="cs307.cs30724springproject2.mapper.passengerRideMapper">
     <insert id="insert" parameterType="passengerRide">
-        INSERT INTO passenger_ride (passenger_id, start_station, end_station, price, start_time, end_time)
-        VALUES (#{passengerId}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
+        INSERT INTO passengerRide (passenger_id, start_station, end_station, price, start_time, end_time)
+        VALUES (#{passenger_id}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
     </insert>
 
 
