@@ -1333,28 +1333,12 @@
 <script>
     document.getElementById("viewPassengerButton").addEventListener("click", function() {
         // 构造目标跳转链接
-        var targetURL = "passengersOnboard.html";
-        //var targetURL = 'http://localhost:8080/passengerOnboard/selectAllPassengerOnboard'
+        var targetURL = 'http://localhost:8080/passengerOnboard/selectAllPassengerOnboard'
         // 执行页面跳转
         window.location.href = targetURL;
-        // 发送GET请求
-        fetch(targetURL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-        // 处理从后端返回的数据
-                console.log(data);
-            })
-            .catch(error => {
-        // 处理错误
-                console.error('Error:', error);
-            });
     });
 </script>
+
 <!-- 查询上车公交卡按钮-->
 <script>
     document.getElementById("viewCardButton").addEventListener("click", function() {

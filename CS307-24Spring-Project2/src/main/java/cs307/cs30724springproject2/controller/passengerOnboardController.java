@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/passengerOnboard")
 public class passengerOnboardController {
     @Autowired
@@ -38,7 +38,7 @@ public class passengerOnboardController {
     public ResponseEntity<String> deletePassenger(@RequestParam("String") String id, String station) {
         try {
             passengerService.deletePassengerOnboardByInfo(id, station);
-            return ResponseEntity.ok("Passengerexited successfully.");
+            return ResponseEntity.ok("Passenger exited successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
                     body("Failed to exit.");

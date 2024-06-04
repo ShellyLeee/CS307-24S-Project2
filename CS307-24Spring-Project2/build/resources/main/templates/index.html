@@ -376,7 +376,6 @@
     }
 </script>
 
-
 <!-- 输入增加一个或多个站点到地铁线指定位置的对话框 -->
 <div id="specificInsertDialog" class="modal" style="display: none;">
     <div class="modal-content">
@@ -1069,7 +1068,6 @@
     <button id="boardConfirmButton2">商务车厢进站</button>
     <button id="exitConfirmButton">出站</button>
 </div>
-
 <!-- 乘客上下车按钮逻辑 -->
 <script>
     document.getElementById("boardExitButton").addEventListener("click", function() {
@@ -1329,32 +1327,18 @@
         }
     })
 </script>
+
+
 <!-- 查询上车乘客按钮 -->
 <script>
     document.getElementById("viewPassengerButton").addEventListener("click", function() {
         // 构造目标跳转链接
-        var targetURL = "passengersOnboard.html";
-        //var targetURL = 'http://localhost:8080/passengerOnboard/selectAllPassengerOnboard'
+        var targetURL = 'http://localhost:8080/passengerOnboard/selectAllPassengerOnboard'
         // 执行页面跳转
         window.location.href = targetURL;
-        // 发送GET请求
-        fetch(targetURL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-        // 处理从后端返回的数据
-                console.log(data);
-            })
-            .catch(error => {
-        // 处理错误
-                console.error('Error:', error);
-            });
     });
 </script>
+
 <!-- 查询上车公交卡按钮-->
 <script>
     document.getElementById("viewCardButton").addEventListener("click", function() {
