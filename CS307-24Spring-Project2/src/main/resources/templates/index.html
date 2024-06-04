@@ -1312,7 +1312,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     async function getTimePassenger(Id, Start){
         const url = 'passengerOnboard/selectByIdStation?Id='+Id+'&startStation='+Start;
         try {
@@ -1327,7 +1326,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     async function getTypeCard(code, Start){
         const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
         try {
@@ -1342,7 +1340,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     async function getTimeCard(code, Start){
         const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
         try {
@@ -1357,7 +1354,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     async function getPrice(startStation,endStation){
         const url = 'price/selectByStations?startStation='+startStation+'&endStation='+endStation;
         try {
@@ -1372,7 +1368,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     async function getBusinessPrice(startStation, endStation){
         const url = 'businessPrice/selectByStations?startStation='+startStation+'&endStation='+endStation;
         try {
@@ -1397,7 +1392,7 @@
         if (ID != '') {
             // 根据类别与起始站判断价格
             var price;
-            if (getTypePassenger(ID, startStation)=='商务') {
+            if (getTypePassenger(ID, startStation) == '商务') {
                 price = getBusinessPrice(startStation, endStation);
             } else {
                 price = getPrice(startStation, endStation);
