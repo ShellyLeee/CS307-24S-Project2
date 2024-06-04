@@ -1305,6 +1305,8 @@
         var endStation = document.getElementById("exit_station").value;
         var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
+            // 选取相应起始时间与价格
+            f
             var data = {
                 passengerId: ID,
                 startStation: startStation,
@@ -1331,6 +1333,7 @@
                 .catch(error => {
                     alert("行程记录失败：" + error.message);
                 });
+
             //删除onboard
             fetch('http://localhost:8080/passengerOnboard/deleteByIdStation?' +
                 'passenger_id=' + ID + '&start_station=' + startStation,
@@ -1383,6 +1386,7 @@
                 .catch(error => {
                     alert("行程记录失败：" + error.message);
                 });
+
             fetch('http://localhost:8080/cardOnboard/deleteByCodeStation?' + 'card_code' + code + '&start_station=' + startStation,
                 {
                     method: 'POST',
