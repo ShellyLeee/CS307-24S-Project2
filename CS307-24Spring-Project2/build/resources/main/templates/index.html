@@ -296,7 +296,6 @@
     }
 </script>
 
-
 <!-- 输入增加线路信息的对话框 -->
 <div id="inputLineInsertDialog" class="modal">
     <div class="modal-content">
@@ -375,6 +374,7 @@
         closeLineInsertDialog();
     }
 </script>
+
 
 <!-- 输入增加一个或多个站点到地铁线指定位置的对话框 -->
 <div id="specificInsertDialog" class="modal" style="display: none;">
@@ -473,6 +473,7 @@
         };
 
         var data2 = {
+            n: stationNumber,
             lineName: lineName,
             stationName: stationName,
             stations: stationValues // Sending station names as an array
@@ -532,6 +533,12 @@
                     }
                     // Handle response if needed
                 })
+                .then(message => {
+                    alert("站点添加成功！" + message);
+                })
+                .catch(error => {
+                    alert("站点添加失败：" + error.message);
+                })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
@@ -551,17 +558,106 @@
                     }
                     // Handle response if needed
                 })
+                .then(message => {
+                    alert("站点添加成功！" + message);
+                })
+                .catch(error => {
+                    alert("站点添加失败：" + error.message);
+                })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
         }
-
-
-
-
         closeSpecificInsertSelectDialog();
     }
 </script>
+
+<!-- 输入在某线路中删除站点的对话框 -->
+<div id="specificDeleteDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closespecificDeleteDialog()">&times;</span>
+        <p>请输入想要删除的站点所在线路的中文名：</p>
+        <input type="String" id="specificLineDelete">
+        <p>请输入想要删除的站点英文名：</p>
+        <input type="String" id="specificStationDelete">
+        <br><br>
+        <button onclick="submitSpecificDelete()">提交</button>
+    </div>
+</div>
+<script>
+    function openSpecificDeleteDialog() {
+        var deleteDialog = document.getElementById("specificDeleteDialog");
+        deleteDialog.style.display = "block";
+    }
+    function closeSpecificDeleteDialog() {
+        var deleteDialog = document.getElementById("specificDeleteDialog");
+        deleteDialog.style.display = "none";
+    }
+    function submitSpecificDelete() {
+        var lineName = document.getElementById("specificLineDelete").value;
+        var stationName = document.getElementById("specificStationDelete").value;
+
+        var data = {
+            "lineName": lineName,
+            "stationName": stationName
+        };
+
+        fetch('/updateStationFromLine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log(data); // 成功删除时打印响应信息
+                respondDelete()
+                // 这里你可以添加成功删除后的任何逻辑
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                // 处理错误情况
+            });
+
+        function respondDelete(){
+            fetch('/deleteStationFromLine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    console.log(data); // 成功删除时打印响应信息
+                    closeSpecificDeleteDialog();
+                })
+                .then(message => {
+                    alert("站点删除成功！" + message);
+                })
+                .catch(error => {
+                    alert("站点删除失败：" + error.message);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                    // 处理错误情况
+                });
+        }
+    }
+
+</script>
+
 
 
 <!-- 输入删除站点ID的对话框 -->
