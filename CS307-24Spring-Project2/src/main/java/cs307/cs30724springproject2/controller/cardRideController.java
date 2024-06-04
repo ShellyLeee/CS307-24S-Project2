@@ -43,5 +43,11 @@ public class cardRideController {
         }
         return cardRideService.getCardRidesByParameters(cardCode, startStation, endStation, price, startTime, endTime);
     }
+
+    @GetMapping( "/selectAll")
+    public List<cardRide> findAllCardRides(){
+        return cardRideService.findAllCardRides();
+    }
+
 }
 

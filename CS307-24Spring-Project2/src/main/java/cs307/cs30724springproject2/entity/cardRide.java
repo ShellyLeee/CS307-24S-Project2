@@ -3,6 +3,7 @@ package cs307.cs30724springproject2.entity;
 
 import java.time.LocalDateTime;
 
+
 public class cardRide {
 
     private Integer id;
@@ -18,6 +19,16 @@ public class cardRide {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
+
+    public cardRide(Integer id, String cardCode, String startStation, String endStation, Integer price, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = id;
+        this.cardCode = cardCode;
+        this.startStation = startStation;
+        this.endStation = endStation;
+        this.price = price;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     @Override
     public String toString() {

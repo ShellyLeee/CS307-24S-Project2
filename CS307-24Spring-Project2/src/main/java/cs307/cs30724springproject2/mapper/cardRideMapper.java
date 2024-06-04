@@ -22,6 +22,8 @@ public interface cardRideMapper {
 
     int updateByPrimaryKey(cardRide row);
 
+    List<cardRide> selectAll();
+
     List<cardRide> selectCardRideByParameters(
             @Param("cardCode") String cardCode,
             @Param("startStation") String startStation,

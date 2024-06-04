@@ -7,6 +7,7 @@
         VALUES (#{cardCode}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
     </insert>
 
+
     <!-- 多参数查询ride:设置参数start/endStation，cardCode, price，timeInterval -->
     <select id="selectCardRideByParameters" resultType="cardRide">
         SELECT * FROM card_ride

@@ -34,5 +34,8 @@ public class cardRideService {
         return cardRideMapper.selectCardRideByParameters(cardCode, startStation, endStation, price, startTime, endTime);
     }
 
+    public List<cardRide> findAllCardRides() {
+        return cardRideMapper.selectAll();
+    }
 
 }

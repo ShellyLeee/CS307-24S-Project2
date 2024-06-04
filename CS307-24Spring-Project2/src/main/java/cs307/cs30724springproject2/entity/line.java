@@ -22,6 +22,17 @@ public class line {
 
     private String url;
 
+    public line(String name, LocalTime startTime, LocalTime endTime, String intro,Double mileage, String color, LocalDate firstOpening, String url) {
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.intro = intro;
+        this.mileage = mileage;
+        this.color = color;
+        this.firstOpening = firstOpening;
+        this.url = url;
+    }
+
     public String getName() {
         return name;
     }
