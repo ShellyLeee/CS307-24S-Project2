@@ -42,4 +42,11 @@ public class passengerOnboardController {
                     body("Failed to exit.");
         }
     }
+
+    @ResponseBody
+    @GetMapping(value = "/selectByIdStation")
+    public passengerOnboard selectByIdStation(@RequestParam String Id,
+                                              @RequestParam String station){
+        return passengerService.selectByIdStation(Id,station);
+    }
 }

@@ -43,4 +43,11 @@ public class cardOnboardController {
                     .body("Failed to exit.");
         }
     }
+
+    @ResponseBody
+    @GetMapping(value = "/selectByCodeStation")
+    public cardOnboard selectByCodeStation(@RequestParam String code,
+                                              @RequestParam String station){
+        return cardOnboardService.selectByCodeStation(code, station);
+    }
 }
