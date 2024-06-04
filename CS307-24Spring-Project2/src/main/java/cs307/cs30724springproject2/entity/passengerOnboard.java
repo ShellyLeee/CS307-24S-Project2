@@ -2,7 +2,6 @@ package cs307.cs30724springproject2.entity;
 
 import jakarta.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class passengerOnboard {
     private Integer id;
