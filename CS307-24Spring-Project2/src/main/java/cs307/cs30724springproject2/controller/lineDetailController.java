@@ -4,9 +4,7 @@ import cs307.cs30724springproject2.entity.station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import cs307.cs30724springproject2.service.lineDetailService;
 
 import java.util.ArrayList;
@@ -108,5 +106,24 @@ public class lineDetailController {
         }
     }
 
-
+    @GetMapping("/getNBefore")
+    public List<String> getStationsBefore(@RequestParam String lineName,
+                                    @RequestParam String stationName,
+                                    @RequestParam int number) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("lineName", lineName);
+        params.put("stationName", stationName);
+        params.put("number", number);
+        return lineDetailService.getNBefore(params);
+    }
+    @GetMapping("/getNAfter")
+    public List<String> getStationsAfter(@RequestParam String lineName,
+                                    @RequestParam String stationName,
+                                    @RequestParam int number) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("lineName", lineName);
+        params.put("stationName", stationName);
+        params.put("number", number);
+        return lineDetailService.getNAfter(params);
+    }
 }

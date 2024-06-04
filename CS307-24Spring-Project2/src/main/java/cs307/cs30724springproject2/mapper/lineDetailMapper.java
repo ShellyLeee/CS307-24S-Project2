@@ -15,4 +15,6 @@ public interface lineDetailMapper {
     void insertMultipleStationsFront(@Param("lineName") String lineName, @Param("stationName") String stationName, @Param("stations") List<Map<String, Object>> stations);
     void updateStationFromLine(@Param("lineName") String lineName, @Param("stationName") String stationName);
     void deleteStationFromLine(@Param("lineName") String lineName, @Param("stationName") String stationName);
+    List<String> selectNBefore(Map<String, Object> params);
+    List<String> selectNAfter(Map<String, Object> params);
 }
