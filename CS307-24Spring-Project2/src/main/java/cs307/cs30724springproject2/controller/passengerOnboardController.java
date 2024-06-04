@@ -16,11 +16,8 @@ import java.util.List;
 public class passengerOnboardController {
     @Autowired
     private passengerOnboardService passengerService;
-    @Autowired
-    private cs307.cs30724springproject2.service.cardOnboardService cardOnboardService;
 
-    @GetMapping(value = "/selectAllPassengerOnboard",
-            produces = "application/json;charset=utf-8")
+    @GetMapping("/selectAllPassengerOnboard")
     public List<passengerOnboard> getAllPassengerOnboard() {
         return passengerService.getAllPassengerOnboard();
     }
