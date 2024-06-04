@@ -83,4 +83,30 @@ public class lineDetailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inserting stations: " + e.getMessage());
         }
     }
+
+    @PostMapping("/updateStationFromLine")
+    public ResponseEntity<String> updateStationFromLine(@RequestBody Map<String, String> request) {
+        try {
+            String lineName = request.get("lineName");
+            String stationName = request.get("stationName");
+            lineDetailService.updateStationFromLine(lineName, stationName);
+            return ResponseEntity.ok("Station deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting station: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/deleteStationFromLine")
+    public ResponseEntity<String> deleteStationFromLine(@RequestBody Map<String, String> request) {
+        try {
+            String lineName = request.get("lineName");
+            String stationName = request.get("stationName");
+            lineDetailService.deleteStationFromLine(lineName, stationName);
+            return ResponseEntity.ok("Station deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting station: " + e.getMessage());
+        }
+    }
+
+
 }

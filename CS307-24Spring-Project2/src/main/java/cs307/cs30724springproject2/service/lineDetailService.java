@@ -39,4 +39,11 @@ public class lineDetailService {
         }
         lineDetailMapper.insertMultipleStationsFront(lineName, stationName, stations);
     }
+
+    public void updateStationFromLine(String lineName, String stationName) {
+        lineDetailMapper.updateStationFromLine(lineName, stationName);
+    }
+    public void deleteStationFromLine(String lineName, String stationName) {
+        lineDetailMapper.deleteStationFromLine(lineName, stationName);
+    }
 }
