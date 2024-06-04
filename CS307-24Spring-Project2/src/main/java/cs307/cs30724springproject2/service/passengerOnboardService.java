@@ -12,6 +12,13 @@ public class passengerOnboardService {
     public passengerOnboardMapper passengerOnboardMapper;
 
     public List<passengerOnboard> getAllPassengerOnboard(){
+        for (passengerOnboard item: passengerOnboardMapper.selectAllPassengerOnboard()){
+            System.out.println(item.getId());
+            System.out.println(item.getPassengerId());
+            System.out.println(item.getStartStation());
+            System.out.println(item.getStartTime());
+            System.out.println(item.getType());
+        }
         return passengerOnboardMapper.selectAllPassengerOnboard();
     }
 
