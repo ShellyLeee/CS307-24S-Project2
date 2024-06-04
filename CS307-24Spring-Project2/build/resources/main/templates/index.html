@@ -66,6 +66,7 @@
     <br><br>
     <button onclick="openSpecificInsertDialog()">地铁线指定位置增加站点</button>
     <button onclick="openSpecificDeleteDialog()">地铁线指定位置删除站点</button>
+    <button onclick="openSpecificSearchDialog()">查询地线路某站点前后n站</button>
     <br><br>
     <button id="boardExitButton">出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
@@ -658,6 +659,89 @@
 
 </script>
 
+<!-- 输入某站点和线路查询前后n站 -->
+<div id="specificSearchDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeSpecificSearchDialog()">&times;</span>
+        <p>请输入想插入的目标线路中文名：</p>
+        <label for="lineS">线路:</label>
+        <input type="String" id="lineS">
+        <p>请输入想插入的目标站点英文名：</p>
+        <label for="stationS">站点:</label>
+        <input type="String" id="stationS">
+        <p>请选择查询此站点的前or后：</p>
+        <label for="searchFirst">先</label>
+        <input type="radio" id="searchFirst" name="searchOrder" value="first">
+        <label for="searchSecond">后</label>
+        <input type="radio" id="searchSecond" name="searchOrder" value="second">
+        <p>请输入想查询的前后站点个数：</p>
+        <label for="stationCount">个数:</label>
+        <input type="number" id="stationCount">
+        <br><br>
+        <button onclick="submitSpecificSearchUpdate()">提交</button>
+    </div>
+</div>
+<script>
+    function openSpecificSearchDialog() {
+        var selectDialog = document.getElementById("specificSearchDialog");
+        selectDialog.style.display = "block";
+    }
+    function closeSpecificSearchDialog() {
+        var selectDialog = document.getElementById("specificSearchDialog");
+        selectDialog.style.display = "none";
+    }
+    function submitSpecificSearchUpdate() {
+        var lineName = document.getElementById("lineS").value;
+        var stationName = document.getElementById("stationS").value;
+        var order = document.querySelector('input[name="searchOrder"]:checked').value;
+        var stationCount = document.getElementById("stationCount").value;
+
+        var data = {
+            lineName: lineName,
+            stationName: stationName,
+            stations: stationCount // Sending station names as an array
+        };
+
+        if (order === "first") {
+            fetch(`/getNBefore?lineName=${lineName}&stationName=${stationName}&number=${stationCount}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    // Handle response data or redirect to a result page
+                    console.log(data);
+                    // Redirect to result page upon successful response
+                    window.location.href = `http://localhost:8080/getNBefore?lineName=${lineName}&stationName=${stationName}&number=${stationCount}`;
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                })
+        }
+        else if(order === "second"){
+            fetch(`/getNAfter?lineName=${lineName}&stationName=${stationName}&number=${stationCount}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    // Handle response data or redirect to a result page
+                    console.log(data);
+                    // Redirect to result page upon successful response
+                    window.location.href = `http://localhost:8080/getNAfter?lineName=${lineName}&stationName=${stationName}&number=${stationCount}`;
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                })
+        }
+        closeLineSelectDialog();
+    }
+
+</script>
 
 
 <!-- 输入删除站点ID的对话框 -->

@@ -46,4 +46,11 @@ public class lineDetailService {
     public void deleteStationFromLine(String lineName, String stationName) {
         lineDetailMapper.deleteStationFromLine(lineName, stationName);
     }
+
+    public List<String> getNBefore(Map<String, Object> params) {
+        return lineDetailMapper.selectNBefore(params);
+    }
+    public List<String> getNAfter(Map<String, Object> params) {
+        return lineDetailMapper.selectNAfter(params);
+    }
 }

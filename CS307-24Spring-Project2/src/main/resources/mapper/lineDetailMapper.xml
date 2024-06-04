@@ -54,4 +54,22 @@
         DELETE FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName}
     </delete>
 
+    <!-- 查询前n站点 -->
+    <select id="selectNBefore" parameterType="java.util.Map" resultType="String">
+        SELECT station_name FROM line_detail
+        WHERE line_name = #{lineName}
+        AND station_no &lt; (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName})
+        AND station_no >= (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName}) - #{number}
+        ORDER BY station_no
+    </select>
+
+    <!-- 查询后n站点 -->
+    <select id="selectNAfter" parameterType="java.util.Map" resultType="String">
+        SELECT station_name FROM line_detail
+        WHERE line_name = #{lineName}
+          AND station_no > (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName})
+          AND station_no &lt;= (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName}) + #{number}
+        ORDER BY station_no
+    </select>
+
 </mapper>
