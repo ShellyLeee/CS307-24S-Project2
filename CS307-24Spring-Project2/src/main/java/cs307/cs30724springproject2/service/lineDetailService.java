@@ -29,4 +29,14 @@ public class lineDetailService {
     public void updateInsertStationNoFront(int n, String lineName, String stationName) {
         lineDetailMapper.updateInsertStationNoFront(Map.of("n", n, "lineName", lineName, "stationName", stationName));
     }
+
+    public void insertMultipleStationsFront(String lineName, int n, String stationName, List<Map<String, Object>> stations) {
+        int reduction = n;
+        for (Map<String, Object> station : stations) {
+            station.put("stationNoReduction", reduction);
+            System.out.println(reduction);
+            reduction--;
+        }
+        lineDetailMapper.insertMultipleStationsFront(lineName, stationName, stations);
+    }
 }

@@ -473,6 +473,7 @@
         };
 
         var data2 = {
+            n: stationNumber,
             lineName: lineName,
             stationName: stationName,
             stations: stationValues // Sending station names as an array
@@ -532,6 +533,12 @@
                     }
                     // Handle response if needed
                 })
+                .then(message => {
+                    alert("站点添加成功！" + message);
+                })
+                .catch(error => {
+                    alert("站点添加失败：" + error.message);
+                })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
@@ -551,14 +558,16 @@
                     }
                     // Handle response if needed
                 })
+                .then(message => {
+                    alert("站点添加成功！" + message);
+                })
+                .catch(error => {
+                    alert("站点添加失败：" + error.message);
+                })
                 .catch(error => {
                     console.error('There was a problem with your fetch operation:', error);
                 });
         }
-
-
-
-
         closeSpecificInsertSelectDialog();
     }
 </script>
