@@ -18,6 +18,16 @@ public class passengerRide {
 
     private LocalDateTime endTime;
 
+    public passengerRide(Integer id, String passengerId, String startStation, String endStation, Integer price, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = id;
+        this.passengerId = passengerId;
+        this.startStation = startStation;
+        this.endStation = endStation;
+        this.price = price;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public Integer getId() {
         return id;
     }
