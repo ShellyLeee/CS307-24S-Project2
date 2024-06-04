@@ -27,6 +27,22 @@ public class passengerRideService {
     public businessPriceMapper businessPriceMapper;
 
     public void insert(passengerRide passengerRide) {
+        passengerOnboard boardedPassenger = passengerOnboardMapper.selectByIdStation(
+                passengerRide.getPassengerId(), passengerRide.getStartStation()
+        );
+        price price = priceMapper.selectByStations(
+                passengerRide.getStartStation(), passengerRide.getEndStation()
+        );
+        businessPrice businessPrice = businessPriceMapper.selectByStations(
+                passengerRide.getStartStation(), passengerRide.getEndStation()
+        );
+        if (boardedPassenger.getType().equals("普通")) {
+            passengerRide.setPrice(price.getPrice());
+        } else if (boardedPassenger.getType().equals("商务")) {
+            passengerRide.setPrice(businessPrice.getPrice());
+        } else passengerRide.setPrice(price.getPrice());
+
+        passengerRide.setStartTime(boardedPassenger.getStartTime());
         passengerRideMapper.insert(passengerRide);
     }
 }
