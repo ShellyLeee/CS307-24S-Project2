@@ -4,7 +4,7 @@
 <mapper namespace="cs307.cs30724springproject2.mapper.cardRideMapper">
     <insert id="insert" parameterType="cardRide">
         INSERT INTO card_ride (card_code, start_station, end_station, price, start_time, end_time)
-        VALUES (#{code}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
+        VALUES (#{cardCode}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
     </insert>
 
     <!-- 多参数查询ride:设置参数start/endStation，cardCode, price，timeInterval -->

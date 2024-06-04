@@ -1,9 +1,6 @@
 package cs307.cs30724springproject2.service;
 
 import cs307.cs30724springproject2.entity.passengerRide;
-import cs307.cs30724springproject2.entity.passengerOnboard;
-import cs307.cs30724springproject2.entity.price;
-import cs307.cs30724springproject2.entity.businessPrice;
 import cs307.cs30724springproject2.mapper.priceMapper;
 import cs307.cs30724springproject2.mapper.passengerRideMapper;
 import cs307.cs30724springproject2.mapper.businessPriceMapper;
@@ -27,22 +24,6 @@ public class passengerRideService {
     public businessPriceMapper businessPriceMapper;
 
     public void insert(passengerRide passengerRide) {
-        passengerOnboard boardedPassenger = passengerOnboardMapper.selectByIdStation(
-                passengerRide.getPassengerId(), passengerRide.getStartStation()
-        );
-        price price = priceMapper.selectByStations(
-                passengerRide.getStartStation(), passengerRide.getEndStation()
-        );
-        businessPrice businessPrice = businessPriceMapper.selectByStations(
-                passengerRide.getStartStation(), passengerRide.getEndStation()
-        );
-        if (boardedPassenger.getType().equals("普通")) {
-            passengerRide.setPrice(price.getPrice());
-        } else if (boardedPassenger.getType().equals("商务")) {
-            passengerRide.setPrice(businessPrice.getPrice());
-        } else passengerRide.setPrice(price.getPrice());
-
-        passengerRide.setStartTime(boardedPassenger.getStartTime());
         passengerRideMapper.insert(passengerRide);
     }
 }

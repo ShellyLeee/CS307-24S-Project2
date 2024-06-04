@@ -906,7 +906,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date().getTime();
+        var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -974,7 +974,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date().getTime();
+        var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -1043,8 +1043,8 @@
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var endStation = document.getElementById("exit_station").value;
-        var time = new Date().getTime();
-        if (ID != null) {
+        var time = new Date(new Date().getTime()).toISOString();
+        if (ID != '') {
             var data = {
                 passengerId: ID,
                 startStation: startStation,
@@ -1097,7 +1097,7 @@
                 .catch(error => {
                     alert("乘客出站失败：" + error.message);
                 });
-        } else if (code != null){
+        } else if (code != ''){
             var data = {
                 cardCode: code,
                 startStation: startStation,

@@ -1044,7 +1044,7 @@
         var startStation = document.getElementById("start_station").value;
         var endStation = document.getElementById("exit_station").value;
         var time = new Date(new Date().getTime()).toISOString();
-        if (ID != null) {
+        if (ID != '') {
             var data = {
                 passengerId: ID,
                 startStation: startStation,
@@ -1097,7 +1097,7 @@
                 .catch(error => {
                     alert("乘客出站失败：" + error.message);
                 });
-        } else if (code != null){
+        } else if (code != ''){
             var data = {
                 cardCode: code,
                 startStation: startStation,
