@@ -3,9 +3,33 @@
 
 <mapper namespace="cs307.cs30724springproject2.mapper.passengerRideMapper">
     <insert id="insert" parameterType="passengerRide">
-        INSERT INTO passengerRide (passenger_id, start_station, end_station, price, start_time, end_time)
-        VALUES (#{passenger_id}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
+        INSERT INTO passenger_ride (passenger_id, start_station, end_station, price, start_time, end_time)
+        VALUES (#{passengerId}, #{startStation}, #{endStation}, #{price}, #{startTime}, #{endTime})
     </insert>
 
+    <!-- 多参数查询ride:设置参数start/endStation，passengerId, price，timeInterval -->
+    <select id="selectPassengerRideByParameters" resultType="passengerRide">
+        SELECT * FROM passenger_ride
+        <where>
+            <if test="passengerId != null">
+                AND passenger_id = #{passengerId}
+            </if>
+            <if test="startStation != null">
+                AND start_station = #{startStation}
+            </if>
+            <if test="endStation != null">
+                AND end_station = #{endStation}
+            </if>
+            <if test="price != null">
+                AND price = #{price}
+            </if>
+            <if test="startTime != null">
+                AND start_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND end_time &lt;= #{endTime}
+            </if>
+        </where>
+    </select>
 
 </mapper>

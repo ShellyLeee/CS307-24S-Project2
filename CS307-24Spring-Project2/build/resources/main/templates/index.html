@@ -54,24 +54,29 @@
 
 <div class="buttons">
     <!-- 按钮触发对话框 -->
+    <p>站点操作相关</p>
     <button onclick="openInsertDialog()">增加站点</button>
     <button onclick="openDeleteDialog()">删除站点</button>
     <button onclick="openSelectDialog()">查询站点</button>
     <button onclick="openUpdateDialog()">修改站点</button>
     <br><br>
+    <p>线路操作相关</p>
     <button onclick="openLineInsertDialog()">增加线路</button>
     <button onclick="openLineDeleteDialog()">删除线路</button>
     <button onclick="openLineSelectDialog()">查询线路</button>
     <button onclick="openLineUpdateDialog()">修改线路</button>
     <br><br>
+    <p>站点线路管理</p>
     <button onclick="openSpecificInsertDialog()">地铁线指定位置增加站点</button>
     <button onclick="openSpecificDeleteDialog()">地铁线指定位置删除站点</button>
     <button onclick="openSpecificSearchDialog()">查询地线路某站点前后n站</button>
     <br><br>
-    <button id="boardExitButton">出站/进站</button>
+    <p>乘客乘车管理</p>
+    <button id="boardExitButton">乘客出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
     <button id="viewCardButton">查询进站公交卡</button>
     <br><br>
+    <p>多参数查询乘车记录</p>
     <button onclick="openMultiCardRideDialog()">多参数查询Card乘车记录</button>
     <button onclick="openMultiPassengerRideDialog()">多参数查询Passenger乘车记录</button>
 
@@ -82,7 +87,7 @@
     <div class="modal-content">
         <span class="close" onclick="closeMultiCardRideDialog()">&times;</span>
         <p>请输入想要查询的乘车记录相关参数：</p>
-        <input type="text" id="cardCodeInput" placeholder="code">
+        <input type="String" id="cardCodeInput" placeholder="code">
         <input type="text" id="startStationCInput" placeholder="起始站点">
         <input type="text" id="endStationCInput" placeholder="终止站点">
         <input type="number" id="priceCInput" placeholder="价钱">
@@ -153,6 +158,83 @@
     }
 
 
+
+</script>
+
+<!-- 输入多参数查询PassengerRide的对话框 -->
+<div id="multiPassengerRideDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeMultiPassengerRideDialog()">&times;</span>
+        <p>请输入想要查询的乘车记录相关参数：</p>
+        <input type="String" id="passengerIdInput" placeholder="passengerId">
+        <input type="text" id="startStationPInput" placeholder="起始站点">
+        <input type="text" id="endStationPInput" placeholder="终止站点">
+        <input type="number" id="pricePInput" placeholder="价钱">
+        <input type="text" id="startTimePInput" placeholder="晚于此起始时间">
+        <input type="text" id="endTimePInput" placeholder="早于此终止时间">
+        <br><br>
+        <button onclick="submitMultiPassengerRideSelect()">提交</button>
+    </div>
+</div>
+<script>
+
+    function openMultiPassengerRideDialog() {
+        var selectDialog = document.getElementById("multiPassengerRideDialog");
+        selectDialog.style.display = "block";
+    }
+    function closeMultiPassengerRideDialog() {
+        var selectDialog = document.getElementById("multiPassengerRideDialog");
+        selectDialog.style.display = "none";
+    }
+    function submitMultiPassengerRideSelect() {
+        var passengerId = document.getElementById("passengerIdInput").value;
+        var startStation = document.getElementById("startStationPInput").value;
+        var price = document.getElementById("pricePInput").value;
+        var endStation = document.getElementById("endStationPInput").value;
+        var startTimeInput = document.getElementById("startTimePInput").value;
+        var endTimeInput = document.getElementById("endTimePInput").value;
+
+        if (startTimeInput && endTimeInput) {
+            // 将输入的文本解析为 Date 对象
+            var startTime = new Date(startTimeInput);
+            var endTime = new Date(endTimeInput);
+
+            // 将 Date 对象转换为 ISO 8601 格式的字符串
+            var startTimeISO = startTime.toISOString();
+            var endTimeISO = endTime.toISOString();
+        }
+// 构建URL
+        var url = "/passengerRide/multiSelect?";
+        if (passengerId) url += "passengerId=" + passengerId + "&";
+        if (startStation) url += "startStation=" + startStation + "&";
+        if (endStation) url += "endStation=" + endStation + "&";
+        if (price) url += "price=" + price + "&";
+        if (startTimeISO) url += "startTime=" + startTimeISO + "&";
+        if (endTimeISO) url += "endTime=" + endTimeISO + "&";
+
+        // 跳转到查询结果页面
+        window.location.href = url;
+
+// 发送GET请求
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+// 处理从后端返回的数据
+                console.log(data);
+            })
+            .catch(error => {
+// 处理错误
+                console.error('Error:', error);
+            });
+
+// 关闭对话框
+        closeMultiPassengerRideDialog();
+    }
 
 </script>
 
