@@ -60,6 +60,7 @@
         WHERE line_name = #{lineName}
         AND station_no &lt; (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName})
         AND station_no >= (SELECT station_no FROM line_detail WHERE line_name = #{lineName} AND station_name = #{stationName}) - #{number}
+        ORDER BY station_no
     </select>
 
     <!-- 查询后n站点 -->
