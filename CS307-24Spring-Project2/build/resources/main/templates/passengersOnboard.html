@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Onboard List</title>
+    <style>
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<h1>Passenger Onboard List</h1>
+<pre id="jsonData">Loading...</pre>
+
+<script>
+    // Fetch data from the backend API
+    fetch('http://localhost:8080/passengerOnboard/selectAllPassengerOnboard')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Display JSON data in the <pre> tag
+            document.getElementById("jsonData").textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            document.getElementById("jsonData").textContent = "Failed to load data.";
+        });
+</script>
+</body>
+</html>
