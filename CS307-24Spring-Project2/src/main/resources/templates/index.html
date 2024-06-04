@@ -906,7 +906,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date().getTime();
+        var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -974,7 +974,7 @@
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
-        var time = new Date().getTime();
+        var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
             var data = {
                 passengerId: ID,
@@ -1043,7 +1043,7 @@
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var endStation = document.getElementById("exit_station").value;
-        var time = new Date().getTime();
+        var time = new Date(new Date().getTime()).toISOString();
         if (ID != null) {
             var data = {
                 passengerId: ID,
