@@ -17,6 +17,10 @@ public class cardOnboardService {
         return cardOnboardMapper.selectAllCardOnboard();
     }
 
+    public cardOnboard selectByCodeStation(String code, String station){
+        return cardOnboardMapper.selectByCodeStation(code, station);
+    }
+
     public void deleteCardOnboardById(int id){
         cardOnboardMapper.deleteByPrimaryKey(id);
     }

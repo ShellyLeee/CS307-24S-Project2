@@ -19,6 +19,10 @@ public class passengerOnboardService {
         passengerOnboardMapper.deleteByPrimaryKey(id);
     }
 
+    public passengerOnboard selectByIdStation(String id,String station){
+        return passengerOnboardMapper.selectByIdStation(id,station);
+    }
+
     public void deletePassengerOnboardByInfo(String passengerId, String station){
         passengerOnboardMapper.deleteByIdStation(passengerId, station);
     }

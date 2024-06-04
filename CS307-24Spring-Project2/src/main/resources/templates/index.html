@@ -1298,6 +1298,91 @@
         }
     })
 
+    async function getTypePassenger(Id, Start){
+        const url = 'passengerOnboard/selectByIdStation?Id='+Id+'&startStation='+Start;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.type);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    async function getTimePassenger(Id, Start){
+        const url = 'passengerOnboard/selectByIdStation?Id='+Id+'&startStation='+Start;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.startTime);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    async function getTypeCard(code, Start){
+        const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.type);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    async function getTimeCard(code, Start){
+        const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.startTime);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    async function getPrice(startStation,endStation){
+        const url = 'price/selectByStations?startStation='+startStation+'&endStation='+endStation;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.price);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+    async function getBusinessPrice(startStation, endStation){
+        const url = 'businessPrice/selectByStations?startStation='+startStation+'&endStation='+endStation;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // 将价格代入一个变量
+            console.log(data.price);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
     document.getElementById("exitConfirmButton").addEventListener("click", function ()  {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
@@ -1305,12 +1390,20 @@
         var endStation = document.getElementById("exit_station").value;
         var time = new Date(new Date().getTime()).toISOString();
         if (ID != '') {
-            // 选取相应起始时间与价格
-            f
+            // 根据类别与起始站判断价格
+            var price;
+            if (getTypePassenger(ID, startStation) == '商务') {
+                price = getBusinessPrice(startStation, endStation);
+            } else {
+                price = getPrice(startStation, endStation);
+            }
+            // 整合数据
             var data = {
                 passengerId: ID,
                 startStation: startStation,
                 endStation: endStation,
+                price: price,
+                startTime: getTimePassenger(ID, startStation),
                 endTime: time,
             };
             //添加ride
@@ -1361,10 +1454,18 @@
                     alert("乘客出站失败：" + error.message);
                 });
         } else if (code != ''){
+            var price;
+            if (getTypeCard(code, startStation)=='商务') {
+                price = getBusinessPrice(startStation, endStation);
+            } else {
+                price = getPrice(startStation, endStation);
+            }
             var data = {
                 cardCode: code,
                 startStation: startStation,
                 endStation: endStation,
+                price: price,
+                startTime: getTimeCard(code,startStation),
                 endTime: time,
             };
             fetch('http://localhost:8080/cardRide/insert', {
