@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 定义了一个名为 “cardMapper” 的映射器 -->
+<mapper namespace="cs307.cs30724springproject2.mapper.transportationViewMapper">
+    <select id="selectTransInfo" resultType="transportationView" parameterType="String">
+        SELECT * FROM transportation_view where station_name = #{stationName} and exit = #{exit}
+    </select>
+
+</mapper>
