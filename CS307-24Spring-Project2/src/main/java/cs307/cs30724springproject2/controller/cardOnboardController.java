@@ -34,9 +34,9 @@ public class cardOnboardController {
     }
 
     @PostMapping("/deleteByCodeStation")
-    public ResponseEntity<String> deleteCardOnboard(@RequestParam("String") String code, String station) {
+    public ResponseEntity<String> deleteCardOnboard(@RequestParam("String") String cardCode, String startStation) {
         try {
-            cardOnboardService.deleteCardOnboardByInfo(code, station);
+            cardOnboardService.deleteCardOnboardByInfo(cardCode, startStation);
             return ResponseEntity.ok("Passenger with card exited successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -46,8 +46,8 @@ public class cardOnboardController {
 
     @ResponseBody
     @GetMapping(value = "/selectByCodeStation")
-    public cardOnboard selectByCodeStation(@RequestParam String code,
-                                              @RequestParam String station){
-        return cardOnboardService.selectByCodeStation(code, station);
+    public cardOnboard selectByCodeStation(@RequestParam String cardCode,
+                                              @RequestParam String startStation){
+        return cardOnboardService.selectByCodeStation(cardCode, startStation);
     }
 }

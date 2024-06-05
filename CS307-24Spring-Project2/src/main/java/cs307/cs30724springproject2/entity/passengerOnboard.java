@@ -6,13 +6,10 @@ import java.time.LocalDateTime;
 public class passengerOnboard {
     private Integer id;
 
-    @Column(name = "passenger_id")
     private String passengerId;
 
-    @Column(name = "start_station")
     private String startStation;
 
-    @Column(name = "start_time")
     private LocalDateTime startTime;
 
     private String type;

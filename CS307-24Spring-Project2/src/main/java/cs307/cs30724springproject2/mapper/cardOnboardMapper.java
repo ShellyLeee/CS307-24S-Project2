@@ -10,7 +10,7 @@ import java.util.List;
 public interface cardOnboardMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int deleteByCodeStation(String code, String station);
+    int deleteByCodeStation(String cardCode, String startStation);
 
     int insert(cardOnboard row);
 
@@ -18,7 +18,7 @@ public interface cardOnboardMapper {
 
     cardOnboard selectByPrimaryKey(Integer id);
 
-    cardOnboard selectByCodeStation(String code, String station);
+    cardOnboard selectByCodeStation(String cardCode, String startStation);
 
     int updateByPrimaryKeySelective(cardOnboard row);
 

@@ -33,9 +33,9 @@ public class passengerOnboardController {
     }
 
     @PostMapping("/deleteByIdStation")
-    public ResponseEntity<String> deletePassenger(@RequestParam("String") String Id, String station) {
+    public ResponseEntity<String> deletePassenger(@RequestParam("String") String passengerId, String startStation) {
         try {
-            passengerService.deletePassengerOnboardByInfo(Id, station);
+            passengerService.deletePassengerOnboardByInfo(passengerId, startStation);
             return ResponseEntity.ok("Passenger exited successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
@@ -45,8 +45,8 @@ public class passengerOnboardController {
 
     @ResponseBody
     @GetMapping(value = "/selectByIdStation")
-    public passengerOnboard selectByIdStation(@RequestParam String Id,
-                                              @RequestParam String station){
-        return passengerService.selectByIdStation(Id,station);
+    public passengerOnboard selectByIdStation(@RequestParam String passengerId,
+                                              @RequestParam String startStation){
+        return passengerService.selectByIdStation(passengerId,startStation);
     }
 }

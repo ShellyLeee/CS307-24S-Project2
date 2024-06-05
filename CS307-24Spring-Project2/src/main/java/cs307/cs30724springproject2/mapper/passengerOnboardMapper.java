@@ -9,9 +9,9 @@ import java.util.List;
 public interface passengerOnboardMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int deleteByIdStation(String id, String station);
+    int deleteByIdStation(String passengerId, String startStation);
 
-    passengerOnboard selectByIdStation(String id, String station);
+    passengerOnboard selectByIdStation(String passengerId, String startStation);
 
     int insert(passengerOnboard row);
 
