@@ -1239,7 +1239,11 @@
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var time = new Date(new Date().getTime()).toISOString();
-        if (ID != '') {
+        fetch(`http://localhost:8080/station/selectByChineseName?chineseName=${startStation}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.condition === '运营中'){
+                    if (ID != '') {
             var data = {
                 passengerId: ID,
                 startStation: startStation,
@@ -1270,36 +1274,41 @@
                     alert("乘客进站失败：" + error.message);
                 });
         } else if (code != ''){
-            var data = {
+                    var data = {
                 cardCode: code,
                 startStation: startStation,
                 startTime: time,
                 type: '普通',
             };
-            fetch('http://localhost:8080/cardOnboard/insert', {
+                    fetch('http://localhost:8080/cardOnboard/insert', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
-                .then(response => {
+                    .then(response => {
                     if (response.ok) {
                         return response.text();
                     }
                     throw new Error('乘客进站失败！');
                 })
-                .then(message => {
+                    .then(message => {
                     alert("乘客进站成功！" + message);
                     // 成功后可以选择隐藏对话框和清除输入框的值
                     document.getElementById("inputPassengerDialog").style.display = "none";
                     document.getElementById("CardCode").value = '';
                     document.getElementById("start_station").value = '';
                 })
-                .catch(error => {
+                    .catch(error => {
                     alert("乘客进站失败：" + error.message);
-                });
-        }
+                });}
+                }
+            }).then(
+            message => {
+                alert("始发站当前不在运营中！" + message);
+            })
+            .catch(error => console.error('Error:', error));
         closeInputDialog();
     }
     function boardBusiness() {
@@ -1307,67 +1316,77 @@
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
         var time = new Date(new Date().getTime()).toISOString();
-        if (ID != '') {
-            var data = {
-                passengerId: ID,
-                startStation: startStation,
-                startTime: time,
-                type: '商务',
-            };
-            fetch('http://localhost:8080/passengerOnboard/insert', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
+        fetch(`http://localhost:8080/station/selectByChineseName?chineseName=${startStation}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.condition === '运营中'){
+                    if (ID != '') {
+                        var data = {
+                            passengerId: ID,
+                            startStation: startStation,
+                            startTime: time,
+                            type: '商务',
+                        };
+                        fetch('http://localhost:8080/passengerOnboard/insert', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                }
+                                throw new Error('乘客进站失败！');
+                            })
+                            .then(message => {
+                                alert("乘客进站成功！" + message);
+                                // 成功后可以选择隐藏对话框和清除输入框的值
+                                document.getElementById("inputPassengerDialog").style.display = "none";
+                                document.getElementById("PassengerID").value = '';
+                                document.getElementById("start_station").value = '';
+                            })
+                            .catch(error => {
+                                alert("乘客进站失败：" + error.message);
+                            });
+                    } else if (code != ''){
+                        var data = {
+                            cardCode: code,
+                            startStation: startStation,
+                            startTime: time,
+                            type: '商务',
+                        };
+                        fetch('http://localhost:8080/cardOnboard/insert', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                }
+                                throw new Error('乘客进站失败！');
+                            })
+                            .then(message => {
+                                alert("乘客进站成功！" + message);
+                                // 成功后可以选择隐藏对话框和清除输入框的值
+                                document.getElementById("inputPassengerDialog").style.display = "none";
+                                document.getElementById("CardCode").value = '';
+                                document.getElementById("start_station").value = '';
+                            })
+                            .catch(error => {
+                                alert("乘客进站失败：" + error.message);
+                            });
                     }
-                    throw new Error('乘客进站失败！');
-                })
-                .then(message => {
-                    alert("乘客进站成功！" + message);
-                    // 成功后可以选择隐藏对话框和清除输入框的值
-                    document.getElementById("inputPassengerDialog").style.display = "none";
-                    document.getElementById("PassengerID").value = '';
-                    document.getElementById("start_station").value = '';
-                })
-                .catch(error => {
-                    alert("乘客进站失败：" + error.message);
-                });
-        } else if (code != ''){
-            var data = {
-                cardCode: code,
-                startStation: startStation,
-                startTime: time,
-                type: '商务',
-            };
-            fetch('http://localhost:8080/cardOnboard/insert', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                }
+            }).then(
+            message => {
+                alert("始发站当前不在运营中！" + message);
             })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    }
-                    throw new Error('乘客进站失败！');
-                })
-                .then(message => {
-                    alert("乘客进站成功！" + message);
-                    // 成功后可以选择隐藏对话框和清除输入框的值
-                    document.getElementById("inputPassengerDialog").style.display = "none";
-                    document.getElementById("CardCode").value = '';
-                    document.getElementById("start_station").value = '';
-                })
-                .catch(error => {
-                    alert("乘客进站失败：" + error.message);
-                });
-        }
+            .catch(error => console.error('Error:', error));
         closeInputDialog();
     }
     function closeRideInfoDialog() {
@@ -1382,43 +1401,53 @@
         var time = new Date(new Date().getTime()).toISOString();
         var type;
         // 调用后端接口获取站点信息
-        if (ID != '') {
-            fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?passengerId=${ID}&startStation=${startStation}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 显示站点信息的对话框
-                    var dialog = document.getElementById("RideInfoDialog");
-                    dialog.style.display = "block";
-                    // 更新站点信息对话框中的内容
-                    document.getElementById("ID").value = ID;
-                    document.getElementById("startStationRide").value = startStation;
-                    document.getElementById("endStationRide").value = endStation;
-                    document.getElementById("startTimeRide").value = data.startTime;
-                    document.getElementById("endTimeRide").value = time;
-                    type = data.type;
-                    document.getElementById("type").value = type;
-                    price(type);
-                })
-                .catch(error => console.error('Error:', error));
-        } else if (code != ''){
-            fetch(`http://localhost:8080/cardOnboard/selectByCodeStation?cardCode=${code}&startStation=${startStation}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 显示站点信息的对话框
-                    var dialog = document.getElementById("RideInfoDialog");
-                    dialog.style.display = "block";
-                    // 更新站点信息对话框中的内容
-                    document.getElementById("code").value = code;
-                    document.getElementById("startStationRide").value = startStation;
-                    document.getElementById("endStationRide").value = endStation;
-                    document.getElementById("startTimeRide").value = data.startTime;
-                    document.getElementById("endTimeRide").value = time;
-                    type = data.type;
-                    document.getElementById("type").value = type;
-                    price(type)
-                })
-                .catch(error => console.error('Error:', error));
-        }
+        fetch(`http://localhost:8080/station/selectByChineseName?chineseName=${endStation}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.condition === '运营中'){
+                    if (ID != '') {
+                        fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?passengerId=${ID}&startStation=${startStation}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // 显示站点信息的对话框
+                                var dialog = document.getElementById("RideInfoDialog");
+                                dialog.style.display = "block";
+                                // 更新站点信息对话框中的内容
+                                document.getElementById("ID").value = ID;
+                                document.getElementById("startStationRide").value = startStation;
+                                document.getElementById("endStationRide").value = endStation;
+                                document.getElementById("startTimeRide").value = data.startTime;
+                                document.getElementById("endTimeRide").value = time;
+                                type = data.type;
+                                document.getElementById("type").value = type;
+                                price(type);
+                            })
+                            .catch(error => console.error('Error:', error));
+                    } else if (code != ''){
+                        fetch(`http://localhost:8080/cardOnboard/selectByCodeStation?cardCode=${code}&startStation=${startStation}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // 显示站点信息的对话框
+                                var dialog = document.getElementById("RideInfoDialog");
+                                dialog.style.display = "block";
+                                // 更新站点信息对话框中的内容
+                                document.getElementById("code").value = code;
+                                document.getElementById("startStationRide").value = startStation;
+                                document.getElementById("endStationRide").value = endStation;
+                                document.getElementById("startTimeRide").value = data.startTime;
+                                document.getElementById("endTimeRide").value = time;
+                                type = data.type;
+                                document.getElementById("type").value = type;
+                                price(type)
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                }
+            }).then(
+            message => {
+                alert("终到站当前不在运营中！" + message);
+            })
+            .catch(error => console.error('Error:', error));
         function price(type){
             if (type === "商务") {
                 fetch(`http://localhost:8080/businessPrice/selectByStations?start=${startStation}&end=${endStation}`)
