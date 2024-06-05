@@ -1,0 +1,50 @@
+<!-- lineInfo.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation Information</title>
+</head>
+<body>
+<h1>Transportation Information</h1>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<table>
+    <thead>
+    <tr>
+        <th>Station_Name</th>
+        <th>Exit</th>
+        <th>Buses</th>
+        <th>Buildings</th>
+        <!-- 其他站点信息的表头 -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${transportationView.stationName}"></td>
+        <td th:text="${transportationView.exit}"></td>
+        <td th:text="${transportationView.buses}"></td>
+        <td th:text="${transportationView.buildings}"></td>
+        <!-- 其他站点信息的表格数据 -->
+    </tr>
+    <!-- 其他行 -->
+    </tbody>
+</table>
+

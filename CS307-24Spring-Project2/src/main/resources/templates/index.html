@@ -70,6 +70,8 @@
     <button onclick="openSpecificInsertDialog()">地铁线指定位置增加站点</button>
     <button onclick="openSpecificDeleteDialog()">地铁线指定位置删除站点</button>
     <button onclick="openSpecificSearchDialog()">查询地线路某站点前后n站</button>
+    <button onclick="openTransInfoDialog()">查询地铁站出口公交建筑信息</button>
+
     <br><br>
     <p>乘客乘车管理</p>
     <button id="boardExitButton">乘客出站/进站</button>
@@ -80,6 +82,45 @@
     <button onclick="openMultiCardRideDialog()">多参数查询Card乘车记录</button>
     <button onclick="openMultiPassengerRideDialog()">多参数查询Passenger乘车记录</button>
 </div>
+
+<!-- 输入查询站点ID的对话框 -->
+<div id="transInfoDialog" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTransInfoDialog()">&times;</span>
+        <p>请输入站点英文名：</p>
+        <input type="String" id="stationNameSelect">
+        <p>请输入站点出口名：</p>
+        <input type="String" id="exitSelect">
+        <br><br>
+        <button onclick="submitTransInfoSelect()">提交</button>
+    </div>
+</div>
+<script>
+    function openTransInfoDialog() {
+        var selectDialog = document.getElementById("transInfoDialog");
+        selectDialog.style.display = "block";
+    }
+    function closeTransInfoDialog() {
+        var selectDialog = document.getElementById("transInfoDialog");
+        selectDialog.style.display = "none";
+    }
+    function submitTransInfoSelect() {
+        var stationName = document.getElementById("stationNameSelect").value;
+        var exit = document.getElementById("exitSelect").value;
+        var data = {
+            stationName: stationName,
+            exit: exit
+        };
+
+        var targetURL = `/transportationView?stationName=${stationName}&exit=${exit}`
+        window.location.href = targetURL;
+
+// 关闭对话框
+        closeSelectDialog();
+    }
+
+</script>
+
 
 <!-- 输入多参数查询CardRide的对话框 -->
 <div id="multiCardRideDialog" class="modal">
