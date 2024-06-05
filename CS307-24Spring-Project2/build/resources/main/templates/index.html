@@ -74,7 +74,7 @@
 
     <br><br>
     <p>乘客乘车管理</p>
-    <button id="boardExitButton">乘客出站/进站</button>
+    <button onclick="openBoardExitDialog()">乘客出站/进站</button>
     <button id="viewPassengerButton">查询进站乘客</button>
     <button id="viewCardButton">查询进站公交卡</button>
     <br><br>
@@ -120,7 +120,6 @@
     }
 
 </script>
-
 
 <!-- 输入多参数查询CardRide的对话框 -->
 <div id="multiCardRideDialog" class="modal">
@@ -278,7 +277,6 @@
 
 </script>
 
-
 <!-- 输入查询站点ID的对话框 -->
 <div id="inputSelectDialog" class="modal">
     <div class="modal-content">
@@ -315,7 +313,6 @@
     }
 
 </script>
-
 
 <!-- 输入查询线路信息的对话框 -->
 <div id="inputLineSelectDialog" class="modal">
@@ -1180,24 +1177,24 @@
     }
 </script>
 
-
-
-
 <!-- 输入上车/下车乘客信息的对话框-->
-<div id="inputPassengerDialog" style="display: none;">
-    <p>请输入乘客信息（ID与卡号选填一个）：</p>
-    <label for="PassengerID">ID:</label>
-    <input type="text" id="PassengerID">
-    <label for="CardCode">卡号:</label>
-    <input type="text" id="CardCode">
-    <label for="start_station">始发站:</label>
-    <input type="text" id="start_station">
-    <label for="exit_station">终到站:</label>
-    <input type="text" id="exit_station">
-    <br><br>
-    <button id="boardConfirmButton1">普通车厢进站</button>
-    <button id="boardConfirmButton2">商务车厢进站</button>
-    <button id="exitConfirmButton" onclick="outInfo()">出站</button>
+<div id="inputPassengerDialog" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeInputDialog()">&times;</span>
+        <p>请输入乘客信息（ID与卡号选填一个）：</p>
+        <label for="PassengerID">ID:</label>
+        <input type="text" id="PassengerID">
+        <label for="CardCode">卡号:</label>
+        <input type="text" id="CardCode">
+        <label for="start_station">始发站:</label>
+        <input type="text" id="start_station">
+        <label for="exit_station">终到站:</label>
+        <input type="text" id="exit_station">
+        <br><br>
+        <button id="boardConfirmButton1" onclick="boardNormal()">普通车厢进站</button>
+        <button id="boardConfirmButton2" onclick="boardBusiness()">商务车厢进站</button>
+        <button id="exitConfirmButton" onclick="outInfo()">出站</button>
+    </div>
 </div>
 <div id="RideInfoDialog" class="modal" style="display: none;">
     <div class="modal-content">
@@ -1225,16 +1222,15 @@
 </div>
 <!-- 乘客上下车按钮逻辑 -->
 <script>
-    document.getElementById("boardExitButton").addEventListener("click", function() {
-// 弹出输入框
+    function openBoardExitDialog(){
         var dialog = document.getElementById("inputPassengerDialog");
-        if (dialog.style.display === "none" || dialog.style.display === "") {
-            dialog.style.display = "block";
-        } else {
-            dialog.style.display = "none";
-        }
-    });
-    document.getElementById("boardConfirmButton1").addEventListener("click", function () {
+        dialog.style.display = "block";
+    }
+    function closeInputDialog() {
+        var dialog = document.getElementById("inputPassengerDialog");
+        dialog.style.display = "none";
+    }
+    function boardNormal() {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
@@ -1300,8 +1296,9 @@
                     alert("乘客进站失败：" + error.message);
                 });
         }
-    })
-    document.getElementById("boardConfirmButton2").addEventListener("click", function () {
+        closeInputDialog();
+    }
+    function boardBusiness() {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
         var startStation = document.getElementById("start_station").value;
@@ -1367,13 +1364,12 @@
                     alert("乘客进站失败：" + error.message);
                 });
         }
-    })
-
+        closeInputDialog();
+    }
     function closeRideInfoDialog() {
         var dialog = document.getElementById("RideInfoDialog");
         dialog.style.display = "none";
     }
-
     function outInfo(){
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
@@ -1438,8 +1434,8 @@
                     .catch(error => console.error('Error:', error));
             }
         }
+        closeInputDialog();
     }
-
     function submitRideUpdate(){
         var ID = document.getElementById("ID").value;
         var code = document.getElementById("code").value;
