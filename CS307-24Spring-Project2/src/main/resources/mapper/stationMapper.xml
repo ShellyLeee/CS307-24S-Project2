@@ -19,12 +19,12 @@
 
     <!-- 插入站点信息 -->
     <insert id="insert" parameterType="station">
-        INSERT INTO station (district, English_name, Chinese_name, intro) VALUES (#{district}, #{englishName}, #{chineseName}, #{intro})
+        INSERT INTO station (district, English_name, Chinese_name, condition, intro) VALUES (#{district}, #{englishName}, #{chineseName}, #{condition}, #{intro})
     </insert>
 
     <!-- 修改站点信息 -->
     <update id="updateByChineseName" parameterType="station">
-        UPDATE station SET district = #{district}, english_name = #{englishName}, chinese_name = #{chineseName}, intro = #{intro} WHERE chinese_name = #{chineseName}
+        UPDATE station SET district = #{district}, english_name = #{englishName}, chinese_name = #{chineseName}, condition = #{condition}, intro = #{intro} WHERE chinese_name = #{chineseName}
     </update>
 
 </mapper>

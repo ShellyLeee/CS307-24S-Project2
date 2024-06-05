@@ -358,6 +358,8 @@
         <input type="String" id="englishName">
         <label for="chineseName">中文名:</label>
         <input type="String" id="chineseName">
+        <label for="condition">状态:</label>
+        <input type="String" id="condition">
         <label for="intro">介绍:</label>
         <input type="String" id="intro">
         <br><br>
@@ -377,12 +379,14 @@
         var district = document.getElementById("district").value;
         var englishName = document.getElementById("englishName").value;
         var chineseName = document.getElementById("chineseName").value;
+        var condition = document.getElementById("condition").value;
         var intro = document.getElementById("intro").value;
 
         var data = {
             district: district,
             englishName: englishName,
             chineseName: chineseName,
+            condition: condition,
             intro: intro
         };
 
@@ -406,6 +410,7 @@
                 document.getElementById("district").value = '';
                 document.getElementById("englishName").value = '';
                 document.getElementById("chineseName").value = '';
+                document.getElementById("condition").value = '';
                 document.getElementById("intro").value = '';
             })
             .catch(error => {
@@ -977,6 +982,7 @@
         <input type="text" id="districtInput" placeholder="地区">
         <input type="text" id="englishNameInput" placeholder="英文名">
         <input type="text" id="chineseNameInput1" placeholder="中文名">
+        <input type="text" id="conditionInput" placeholder="状态">
         <input type="text" id="introInput" placeholder="简介">
         <br><br>
         <button onclick="submitUpdate()">提交</button>
@@ -1011,6 +1017,7 @@
                 document.getElementById("districtInput").value = data.district;
                 document.getElementById("englishNameInput").value = data.englishName;
                 document.getElementById("chineseNameInput1").value = data.chineseName;
+                document.getElementById("conditionInput").value = data.condition;
                 document.getElementById("introInput").value = data.intro;
             })
             .catch(error => console.error('Error:', error));
@@ -1021,11 +1028,13 @@
         var district = document.getElementById("districtInput").value;
         var englishName = document.getElementById("englishNameInput").value;
         var chineseName = document.getElementById("chineseNameInput1").value;
+        var condition = document.getElementById("conditionInput").value;
         var intro = document.getElementById("introInput").value;
         var data = {
             district: district,
             englishName: englishName,
             chineseName: chineseName,
+            condition: condition,
             intro: intro
         };
         fetch('http://localhost:8080/station/updateStation', {

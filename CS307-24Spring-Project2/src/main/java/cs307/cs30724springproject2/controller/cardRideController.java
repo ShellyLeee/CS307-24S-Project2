@@ -28,7 +28,7 @@ public class cardRideController {
         }
     }
 
-    @GetMapping( "/multiSelect")
+    @GetMapping( value = "/multiSelect", produces = "application/json;charset=utf-8")
     public List<cardRide> getCardRides(
             @RequestParam(required = false) String cardCode,
             @RequestParam(required = false) String startStation,
