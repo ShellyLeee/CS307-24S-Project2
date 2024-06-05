@@ -1372,7 +1372,7 @@
         var type;
         // 调用后端接口获取站点信息
         if (ID != '') {
-            fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?Id=${ID}&station=${startStation}`)
+            fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?passengerId=${ID}&startStation=${startStation}`)
                 .then(response => response.json())
                 .then(data => {
                     // 显示站点信息的对话框
@@ -1463,7 +1463,7 @@
                     alert("行程记录失败：" + error.message);
                 });
             //删除onboard
-            fetch(`http://localhost:8080/passengerOnboard/deleteByIdStation?Id=${ID}&station=${startStation}`,
+            fetch(`http://localhost:8080/passengerOnboard/deleteByIdStation?passengerId=${ID}&startStation=${startStation}`,
                 {
                     method: 'POST',
                     headers: {
@@ -1516,7 +1516,7 @@
                     alert("行程记录失败：" + error.message);
                 });
 
-            fetch(`http://localhost:8080/cardOnboard/deleteByCodeStation?code=${code}&station=${startStation}`,
+            fetch(`http://localhost:8080/cardOnboard/deleteByCodeStation?cardCode=${code}&startStation=${startStation}`,
                 {
                     method: 'POST',
                     headers: {
