@@ -22,4 +22,5 @@ public class cardController {
     public List<card> getAllCard(){
         return cardService.selectAll();
     }
+
 }
