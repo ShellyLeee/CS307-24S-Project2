@@ -1160,7 +1160,6 @@
             dialog.style.display = "none";
         }
     });
-
     document.getElementById("boardConfirmButton1").addEventListener("click", function () {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
@@ -1228,7 +1227,6 @@
                 });
         }
     })
-
     document.getElementById("boardConfirmButton2").addEventListener("click", function () {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
@@ -1298,7 +1296,7 @@
     })
 
     async function getTypePassenger(Id, Start){
-        const url = 'passengerOnboard/selectByIdStation?Id='+Id+'&startStation='+Start;
+        const url = `passengerOnboard/selectByIdStation?Id=${Id}&startStation=${Start}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -1306,13 +1304,13 @@
             }
             const data = await response.json();
             // 将价格代入一个变量
-            console.log(data.type);
+            return data.type;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
     async function getTimePassenger(Id, Start){
-        const url = 'passengerOnboard/selectByIdStation?Id='+Id+'&startStation='+Start;
+        const url = `passengerOnboard/selectByIdStation?Id=${Id}&startStation=${Start}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -1320,13 +1318,13 @@
             }
             const data = await response.json();
             // 将价格代入一个变量
-            console.log(data.startTime);
+            return data.startTime;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
     async function getTypeCard(code, Start){
-        const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
+        const url = `cardOnboard/selectByCodeStation?cardCode=${code}&startStation=${Start}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -1334,13 +1332,13 @@
             }
             const data = await response.json();
             // 将价格代入一个变量
-            console.log(data.type);
+            return data.type;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
     async function getTimeCard(code, Start){
-        const url = 'cardOnboard/selectByCodeStation?cardCode='+code+'&startStation='+Start;
+        const url = `cardOnboard/selectByCodeStation?cardCode=${code}&startStation=${Start}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -1348,27 +1346,27 @@
             }
             const data = await response.json();
             // 将价格代入一个变量
-            console.log(data.startTime);
+            return data.startTime;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
     async function getPrice(startStation,endStation){
-        const url = 'price/selectByStations?startStation='+startStation+'&endStation='+endStation;
+        const url = `price/selectByStations?startStation=${startStation}&endStation=${endStation}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error('Network response error');
             }
             const data = await response.json();
             // 将价格代入一个变量
-            console.log(data.price);
+            return data.price;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
     }
     async function getBusinessPrice(startStation, endStation){
-        const url = 'businessPrice/selectByStations?startStation='+startStation+'&endStation='+endStation;
+        const url = `businessPrice/selectByStations?startStation=${startStation}&endStation=${endStation}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -1381,7 +1379,6 @@
             console.error('There was a problem with the fetch operation:', error);
         }
     }
-
     document.getElementById("exitConfirmButton").addEventListener("click", function ()  {
         var ID = document.getElementById("PassengerID").value;
         var code = document.getElementById("CardCode").value;
