@@ -1388,6 +1388,7 @@
                     document.getElementById("endTimeRide").value = time;
                     type = data.type;
                     document.getElementById("type").value = type;
+                    price(type);
                 })
                 .catch(error => console.error('Error:', error));
         } else if (code != ''){
@@ -1405,25 +1406,28 @@
                     document.getElementById("endTimeRide").value = time;
                     type = data.type;
                     document.getElementById("type").value = type;
+                    price(type)
                 })
                 .catch(error => console.error('Error:', error));
         }
-        if (type != '普通'){
-            fetch(`http://localhost:8080/businessPrice/selectByStations?start=${startStation}&end=${endStation}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 更新站点信息对话框中的内容
-                    document.getElementById("price").value = data.price;
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            fetch(`http://localhost:8080/price/selectByStations?start=${startStation}&end=${endStation}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 更新站点信息对话框中的内容
-                    document.getElementById("price").value = data.price;
-                })
-                .catch(error => console.error('Error:', error));
+        function price(type){
+            if (type === "商务") {
+                fetch(`http://localhost:8080/businessPrice/selectByStations?start=${startStation}&end=${endStation}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 更新站点信息对话框中的内容
+                        document.getElementById("price").value = data.price;
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else if (type === "普通") {
+                fetch(`http://localhost:8080/price/selectByStations?start=${startStation}&end=${endStation}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // 更新站点信息对话框中的内容
+                        document.getElementById("price").value = data.price;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         }
     }
 
