@@ -1407,7 +1407,6 @@
                         fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?passengerId=${ID}&startStation=${startStation}`)
                             .then(response => response.json())
                             .then(data => {
-                                console.log(data);
                                 // 显示站点信息的对话框
                                 var dialog = document.getElementById("RideInfoDialog");
                                 dialog.style.display = "block";

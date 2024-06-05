@@ -1244,12 +1244,12 @@
             .then(data => {
                 if (data.condition === '运营中'){
                     if (ID != '') {
-            var data = {
-                passengerId: ID,
-                startStation: startStation,
-                startTime: time,
-                type: '普通',
-            };
+                    var data = {
+                        passengerId: ID,
+                        startStation: startStation,
+                        startTime: time,
+                        type: '普通',
+                    };
             fetch('http://localhost:8080/passengerOnboard/insert', {
                 method: 'POST',
                 headers: {
