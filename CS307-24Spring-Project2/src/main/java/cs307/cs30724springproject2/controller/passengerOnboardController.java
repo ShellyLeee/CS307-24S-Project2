@@ -15,7 +15,7 @@ public class passengerOnboardController {
     @Autowired
     private passengerOnboardService passengerService;
 
-    @GetMapping("/selectAllPassengerOnboard")
+    @GetMapping(value = "/selectAllPassengerOnboard", produces = "application/json;charset=utf-8")
     public List<passengerOnboard> getAllPassengerOnboard() {
         return passengerService.getAllPassengerOnboard();
     }
