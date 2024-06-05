@@ -47,6 +47,8 @@ public class passengerOnboardController {
     @GetMapping(value = "/selectByIdStation")
     public passengerOnboard selectByIdStation(@RequestParam String Id,
                                               @RequestParam String station){
+        System.out.println(selectByIdStation(Id, station).getStartTime());
+        System.out.println(selectByIdStation(Id, station).getType());
         return passengerService.selectByIdStation(Id,station);
     }
 }
