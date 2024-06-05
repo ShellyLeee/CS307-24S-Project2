@@ -34,7 +34,8 @@ public class cardOnboardController {
     }
 
     @PostMapping("/deleteByCodeStation")
-    public ResponseEntity<String> deleteCardOnboard(@RequestParam("String") String cardCode, String startStation) {
+    public ResponseEntity<String> deleteCardOnboard(@RequestParam String cardCode,
+                                                    @RequestParam String startStation) {
         try {
             cardOnboardService.deleteCardOnboardByInfo(cardCode, startStation);
             return ResponseEntity.ok("Passenger with card exited successfully.");
@@ -47,7 +48,7 @@ public class cardOnboardController {
     @ResponseBody
     @GetMapping(value = "/selectByCodeStation")
     public cardOnboard selectByCodeStation(@RequestParam String cardCode,
-                                              @RequestParam String startStation){
+                                           @RequestParam String startStation){
         return cardOnboardService.selectByCodeStation(cardCode, startStation);
     }
 }

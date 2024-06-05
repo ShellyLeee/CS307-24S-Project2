@@ -1202,6 +1202,8 @@
         <input type="text" id="startStationRide" placeholder="始发站">
         <label for="endStationRide">终到站:</label>
         <input type="text" id="endStationRide" placeholder="终到站">
+        <label for="type">车厢:</label>
+        <input type="text" id="type" placeholder="车厢">
         <label for="price">价格:</label>
         <input type="text" id="price" placeholder="价格">
         <label for="startTimeRide">进站时间:</label>
@@ -1385,10 +1387,11 @@
                     document.getElementById("startTimeRide").value = data.startTime;
                     document.getElementById("endTimeRide").value = time;
                     type = data.type;
+                    document.getElementById("type").value = type;
                 })
                 .catch(error => console.error('Error:', error));
         } else if (code != ''){
-            fetch(`http://localhost:8080/cardOnboard/selectByCodeStation?code=${code}&station=${startStation}`)
+            fetch(`http://localhost:8080/cardOnboard/selectByCodeStation?cardCode=${code}&startStation=${startStation}`)
                 .then(response => response.json())
                 .then(data => {
                     // 显示站点信息的对话框
@@ -1401,10 +1404,11 @@
                     document.getElementById("startTimeRide").value = data.startTime;
                     document.getElementById("endTimeRide").value = time;
                     type = data.type;
+                    document.getElementById("type").value = type;
                 })
                 .catch(error => console.error('Error:', error));
         }
-        if (type == '商务'){
+        if (type != '普通'){
             fetch(`http://localhost:8080/businessPrice/selectByStations?start=${startStation}&end=${endStation}`)
                 .then(response => response.json())
                 .then(data => {
@@ -1421,7 +1425,6 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-
     }
 
     function submitRideUpdate(){
@@ -1483,6 +1486,13 @@
                     document.getElementById("PassengerID").value = '';
                     document.getElementById("start_station").value = '';
                     document.getElementById("exit_station").value = '';
+                    document.getElementById("ID").value = '';
+                    document.getElementById("startStationRide").value = '';
+                    document.getElementById("endStationRide").value = '';
+                    document.getElementById("type").value = '';
+                    document.getElementById("price").value = '';
+                    document.getElementById("startTimeRide").value = '';
+                    document.getElementById("endTimeRide").value = '';
                 })
                 .catch(error => {
                     alert("乘客出站失败：" + error.message);
@@ -1515,7 +1525,6 @@
                 .catch(error => {
                     alert("行程记录失败：" + error.message);
                 });
-
             fetch(`http://localhost:8080/cardOnboard/deleteByCodeStation?cardCode=${code}&startStation=${startStation}`,
                 {
                     method: 'POST',
@@ -1535,6 +1544,13 @@
                     document.getElementById("CardCode").value = '';
                     document.getElementById("start_station").value = '';
                     document.getElementById("exit_station").value = '';
+                    document.getElementById("code").value = '';
+                    document.getElementById("startStationRide").value = '';
+                    document.getElementById("endStationRide").value = '';
+                    document.getElementById("type").value = '';
+                    document.getElementById("price").value = '';
+                    document.getElementById("startTimeRide").value = '';
+                    document.getElementById("endTimeRide").value = '';
                 })
                 .catch(error => {
                     alert("乘客出站失败：" + error.message);

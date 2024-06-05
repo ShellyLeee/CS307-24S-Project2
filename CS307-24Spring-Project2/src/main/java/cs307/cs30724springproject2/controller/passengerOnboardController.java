@@ -33,7 +33,8 @@ public class passengerOnboardController {
     }
 
     @PostMapping("/deleteByIdStation")
-    public ResponseEntity<String> deletePassenger(@RequestParam("String") String passengerId, String startStation) {
+    public ResponseEntity<String> deleteByIdStation(@RequestParam String passengerId,
+                                                    @RequestParam String startStation) {
         try {
             passengerService.deletePassengerOnboardByInfo(passengerId, startStation);
             return ResponseEntity.ok("Passenger exited successfully.");

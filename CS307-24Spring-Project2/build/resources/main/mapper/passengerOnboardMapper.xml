@@ -7,7 +7,7 @@
     </select>
 
     <select id="selectByIdStation" parameterType="String" resultType="passengerOnboard">
-        SELECT * FROM passenger WHERE passenger_id = #{passengerId} and start_station = #{startStation}
+        SELECT * FROM passenger_onboard WHERE passenger_id = #{passengerId} and start_station = #{startStation}
     </select>
 
     <!-- 删除乘客信息 -->
