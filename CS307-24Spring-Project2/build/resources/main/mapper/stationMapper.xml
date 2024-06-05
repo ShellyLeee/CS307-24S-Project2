@@ -24,7 +24,7 @@
 
     <!-- 修改站点信息 -->
     <update id="updateByChineseName" parameterType="station">
-        UPDATE station SET district = #{district}, english_name = #{englishName}, chinese_name = #{chineseName}, condition = #{condition}, intro = #{intro} WHERE chinese_name = #{chineseName}
+        UPDATE station SET district = #{district}, english_name = #{englishName}, chinese_name = #{chineseName}, condition = #{condition}, intro = #{intro} WHERE id = #{id}
     </update>
 
 </mapper>

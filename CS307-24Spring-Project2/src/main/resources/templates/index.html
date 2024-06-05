@@ -982,6 +982,7 @@
         <span class="close" onclick="closeStationInfoDialog()">&times;</span>
         <p id="stationInfo"></p>
         <!-- 这里添加四个框，用来输入需要修改的内容 -->
+        <input type="text" id="stationId" placeholder="编号" readonly>
         <input type="text" id="districtInput" placeholder="地区">
         <input type="text" id="englishNameInput" placeholder="英文名">
         <input type="text" id="chineseNameInput1" placeholder="中文名">
@@ -1017,6 +1018,7 @@
                 var dialog = document.getElementById("stationInfoDialog");
                 dialog.style.display = "block";
                 // 更新站点信息对话框中的内容
+                document.getElementById("stationId").value = data.id;
                 document.getElementById("districtInput").value = data.district;
                 document.getElementById("englishNameInput").value = data.englishName;
                 document.getElementById("chineseNameInput1").value = data.chineseName;
@@ -1028,15 +1030,17 @@
     }
 
     function submitUpdate() {
+        var stationId = document.getElementById("stationId").value;
         var district = document.getElementById("districtInput").value;
         var englishName = document.getElementById("englishNameInput").value;
-        var chineseName = document.getElementById("chineseNameInput1").value;
+        var chineseName1 = document.getElementById("chineseNameInput1").value;
         var condition = document.getElementById("conditionInput").value;
         var intro = document.getElementById("introInput").value;
         var data = {
+            id: stationId,
             district: district,
             englishName: englishName,
-            chineseName: chineseName,
+            chineseName: chineseName1,
             condition: condition,
             intro: intro
         };

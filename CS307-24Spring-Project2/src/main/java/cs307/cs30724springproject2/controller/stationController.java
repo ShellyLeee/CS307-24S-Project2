@@ -54,7 +54,7 @@ public class stationController {
 
     @PostMapping("/updateStation")
     public ResponseEntity<String> updateStation(@RequestBody station stationT) {
-        System.out.println(stationT.getEnglishName());
+        System.out.println(stationT.getChineseName());
         try {
             stationService.updateStation(stationT); // 调用服务层方法执行更新操作
             return new ResponseEntity<>("Station updated successfully.", HttpStatus.OK);
