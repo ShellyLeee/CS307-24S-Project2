@@ -1,6 +1,5 @@
 package cs307.cs30724springproject2.controller;
 
-import cs307.cs30724springproject2.entity.station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,7 @@ public class lineDetailController {
         int n = Integer.parseInt(strN);
         String lineName = (String) parameters.get("lineName");
         String stationName = (String) parameters.get("stationName");
+        System.out.println(n + " " + lineName + " " + stationName);
         lineDetailService.updateInsertStationNoBehind(n, lineName, stationName);
     }
 
@@ -47,7 +47,6 @@ public class lineDetailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inserting stations: " + e.getMessage());
         }
     }
-
 
     @PostMapping("/updateInsertStationNoFront")
     public void updateInsertStationNoFront(@RequestBody Map<String, Object> parameters) {
