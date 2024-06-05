@@ -1303,10 +1303,9 @@
                     .catch(error => {
                     alert("乘客进站失败：" + error.message);
                 });}
+                } else {
+                    alert("始发站当前不在运营中！");
                 }
-            }).then(
-            message => {
-                alert("始发站当前不在运营中！" + message);
             })
             .catch(error => console.error('Error:', error));
         closeInputDialog();
@@ -1381,10 +1380,9 @@
                                 alert("乘客进站失败：" + error.message);
                             });
                     }
+                } else {
+                    alert("始发站当前不在运营中！");
                 }
-            }).then(
-            message => {
-                alert("始发站当前不在运营中！" + message);
             })
             .catch(error => console.error('Error:', error));
         closeInputDialog();
@@ -1409,6 +1407,7 @@
                         fetch(`http://localhost:8080/passengerOnboard/selectByIdStation?passengerId=${ID}&startStation=${startStation}`)
                             .then(response => response.json())
                             .then(data => {
+                                console.log(data);
                                 // 显示站点信息的对话框
                                 var dialog = document.getElementById("RideInfoDialog");
                                 dialog.style.display = "block";
@@ -1442,10 +1441,9 @@
                             })
                             .catch(error => console.error('Error:', error));
                     }
+                } else {
+                    alert("终到站当前不在运营中！");
                 }
-            }).then(
-            message => {
-                alert("终到站当前不在运营中！" + message);
             })
             .catch(error => console.error('Error:', error));
         function price(type){
